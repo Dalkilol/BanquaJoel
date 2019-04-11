@@ -6,7 +6,6 @@
 package com.bank.servlet;
 
 import com.bank.bean.Personne;
-import com.bank.dao.AdminConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,12 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ESIC
  */
-@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/Home"})
+@WebServlet(name = "AdminHomeServlet", urlPatterns = {"/Home"})
 public class HomeServlet extends HttpServlet {
 
     /**
@@ -39,10 +39,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClientHomeServlet</title>");            
+            out.println("<title>Servlet AdminHomeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClientHomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminHomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +60,24 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+        HttpSession session = request.getSession(true);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user",p);
+        
+        if (p.isIsAdmin()) {
+            request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
+        }
+        if (p.isIsClient()) {
+            request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
+        }
+        if (p.isIsConseiller()) {
+            request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
+        }
+        
+        
+        
     }
 
     /**
@@ -74,30 +91,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String login = request.getParameter("login");
-        String mdp = request.getParameter("mdp");
-        
-        try {
-           Personne personne = AdminConseillerDao.getByLogAndPass(login, mdp);
-
-            if (personne != null) { 
-                request.getSession(true).setAttribute("user", personne); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
-                
-                // RAJOUTER LES ISADMIN...
-                
-                
-                response.sendRedirect("home");
-                
-                
-                
-            } else {
-                request.setAttribute("msg", "DOMMAGE !"); // on peut maintenant utiliser le msg dans index.jsp (voir ligne d'apres)
-                request.getRequestDispatcher("index.jsp").forward(request, response); // s'il n'a pas envoyé le bon mdp il reste la où il est donc sur index
-            }
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**

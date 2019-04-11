@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author ESIC
  */
 
-public class AdminConseillerDao {
+public class PersonneDao {
     
     
         public static Personne getByLogAndPass(String log, String pass)

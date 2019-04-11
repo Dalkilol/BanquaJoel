@@ -6,7 +6,7 @@
 package com.bank.servlet;
 
 import com.bank.bean.Personne;
-import com.bank.dao.AdminConseillerDao;
+import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -88,8 +88,8 @@ public class AdminModifyServlet extends HttpServlet {
 
         try {
 
-            AdminConseillerDao.updateConseiller(p);
-            response.sendRedirect("AdminHome");
+            PersonneDao.updateConseiller(p);
+            response.sendRedirect("Home");
             
       
         } catch (Exception e) {
