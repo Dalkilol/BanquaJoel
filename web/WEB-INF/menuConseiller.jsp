@@ -44,6 +44,9 @@
                             <a class="dropdown-item" href="#">Consulter client</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Se déconnecter</a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -50,6 +50,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Messagerie</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Se déconnecter</a>
+                    </li>
                 </ul>
             </div>
         </nav>

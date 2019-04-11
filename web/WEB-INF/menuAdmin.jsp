@@ -41,7 +41,7 @@
                             <a class="dropdown-item" href="#">Modifier conseiller</a>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Se déconnecter</a>
                     </li>
                 </ul>
