@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 11 Avril 2019 à 15:31
+-- Généré le :  Jeu 11 Avril 2019 à 15:39
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -129,7 +129,7 @@ INSERT INTO `conseiller` (`idconseiller`, `nom`, `prenom`, `mail`, `mdp`) VALUES
 CREATE TABLE IF NOT EXISTS `historique` (
   `idhistorique` int(11) NOT NULL AUTO_INCREMENT,
   `idclient` int(11) NOT NULL,
-  `dateOpe` date NOT NULL,
+  `dateOpe` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `montantOpe` double NOT NULL,
   `motif` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idhistorique`)
