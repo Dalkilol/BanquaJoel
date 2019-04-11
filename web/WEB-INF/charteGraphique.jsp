@@ -18,6 +18,8 @@
     </head>
     <body>
         
+        
+        // DOCUMENTATION POUR TOUT BOOTSTRAP : https://fezvrasta.github.io/bootstrap-material-design/docs/4.0/getting-started/introduction/
         //NAVBAR //NAVBAR //NAVBAR
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Navbar</a>
