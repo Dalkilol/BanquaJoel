@@ -10,61 +10,22 @@ package com.bank.bean;
  * @author ESIC
  */
 public class Personne  { 
+    private int idpersonne;
     private String nom;
     private String prenom;
     private String mail;
     private String mdp;
-    private int id;
-    private int idconseiller;
 
-    public Personne(String nom, String prenom, String mail, String mdp) {
+    public Personne(int idpersonne, String nom, String prenom, String mail, String mdp) {
+        this.idpersonne = idpersonne;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.mdp = mdp;
+    
+
     }
 
-    
-    
-    public Personne(String nom, String prenom, String mail, String mdp, int idconseiller) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.mdp = mdp;
-        this.idconseiller = idconseiller;
-    }
-
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
-    
-    
-    public Personne() {
-    }
-
-
-
-    
-    
-    public String infoPersonne(){
-        return("Nom : " + nom + "<br>Prénom : " + prenom + "<br>Mail : " + mail);
-    }
-    
-    
     public String getNom() {
         return nom;
     }
@@ -89,13 +50,26 @@ public class Personne  {
         this.mail = mail;
     }
 
-    public int getIdconseiller() {
-        return idconseiller;
+    public String getMdp() {
+        return mdp;
     }
 
-    public void setIdconseiller(int idconseiller) {
-        this.idconseiller = idconseiller;
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
+
+    public int getIdpersonne() {
+        return idpersonne;
+    }
+
+    public void setIdpersonne(int idpersonne) {
+        this.idpersonne = idpersonne;
+    }
+
+    public Personne() {
+    }
+
+    
     
 
 }

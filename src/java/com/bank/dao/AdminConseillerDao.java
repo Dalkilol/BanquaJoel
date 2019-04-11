@@ -19,7 +19,7 @@ public class AdminConseillerDao {
 
     public static void insertConseiller(Personne p)
             throws SQLException {
-        String sql = "INSERT INTO conseiller (nom, prenom, mail, mdp) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO personne (nom, prenom, mail, mdp, isconseiller) VALUES (?, ?, ?, ?, 1)";
 
         Connection connexion = ConnectConf.getConnection();
 
@@ -35,7 +35,7 @@ public class AdminConseillerDao {
 
     public static void updateConseiller(Personne p)
             throws SQLException {
-        String sql = "UPDATE conseiller SET nom=?, prenom=?, mail=?, mdp=? WHERE conseiller.idconseiller=?";
+        String sql = "UPDATE personne SET nom=?, prenom=?, mail=?, mdp=? WHERE personne.idpersonne=?";
 
         Connection connexion = ConnectConf.getConnection();
 
@@ -45,7 +45,7 @@ public class AdminConseillerDao {
         ordre.setString(2, p.getPrenom());
         ordre.setString(3, p.getMail());
         ordre.setString(4, p.getMdp());
-        ordre.setInt(5, p.getIdconseiller());
+        ordre.setInt(5, p.getIdpersonne());
 
         ordre.execute();
     }
@@ -56,12 +56,13 @@ public class AdminConseillerDao {
 
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
-        ordre.setInt(1, p.getIdconseiller());
+        ordre.setInt(1, p.getIdpersonne());
         ordre.execute();
         
         ResultSet rs = ordre.executeQuery();
          if(rs.next()){
              p = new Personne();
+             p.setIdpersonne(rs.getInt("idpersonne"));
              p.setNom(rs.getString("nom"));
              p.setPrenom(rs.getString("prenom"));
              p.setMail(rs.getString("mail"));
