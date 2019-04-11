@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 11 Avril 2019 à 16:09
+-- Généré le :  Jeu 11 Avril 2019 à 17:11
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -19,31 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `banquajoel`
 --
-DROP schema IF EXISTS `banquajoel`;
+DROP schema if exists `banquajoel` ;
 CREATE DATABASE IF NOT EXISTS `banquajoel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `banquajoel`;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `admin`
---
-
-CREATE TABLE IF NOT EXISTS `admin` (
-  `idadmin` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(45) NOT NULL,
-  `prenom` varchar(45) NOT NULL,
-  `mail` varchar(45) NOT NULL,
-  `mdp` varchar(45) NOT NULL,
-  PRIMARY KEY (`idadmin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `admin`
---
-
-INSERT INTO `admin` (`idadmin`, `nom`, `prenom`, `mail`, `mdp`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -52,26 +30,19 @@ INSERT INTO `admin` (`idadmin`, `nom`, `prenom`, `mail`, `mdp`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `client` (
-  `idclient` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(45) NOT NULL,
-  `prenom` varchar(45) NOT NULL,
-  `mail` varchar(45) NOT NULL,
-  `mdp` varchar(45) NOT NULL,
-  `conseiller_idconseiller` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
+  `idconseiller` int(11) NOT NULL,
   PRIMARY KEY (`idclient`),
-  KEY `fk_client_conseiller_idx` (`conseiller_idconseiller`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  KEY `fk_client_personne1_idx` (`idclient`),
+  KEY `fk_client_conseiller1_idx` (`idconseiller`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`idclient`, `nom`, `prenom`, `mail`, `mdp`, `conseiller_idconseiller`) VALUES
-(1, 'test1', 'test1', 'test1', 'test1', 1),
-(2, 'test2', 'test2', 'test2', 'test2', 1),
-(3, 'test3', 'test3', 'test3', 'test3', 1),
-(4, 'test4', 'test4', 'test4', 'test4', 2),
-(5, 'test5', 'test5', 'test5', 'test5', 2);
+INSERT INTO `client` (`idclient`, `idconseiller`) VALUES
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -83,22 +54,10 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `idcompte` int(11) NOT NULL AUTO_INCREMENT,
   `solde` double NOT NULL,
   `decouvert` double NOT NULL,
-  `client_idclient` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
   PRIMARY KEY (`idcompte`),
-  KEY `fk_compte_client1_idx` (`client_idclient`)
+  KEY `fk_compte_client1_idx` (`idclient`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Contenu de la table `compte`
---
-
-INSERT INTO `compte` (`idcompte`, `solde`, `decouvert`, `client_idclient`) VALUES
-(1, 1000, 0, 1),
-(2, 5000, 0, 1),
-(3, 500, 0, 2),
-(4, 100, 0, 3),
-(5, 10, 0, 4),
-(6, 0, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -107,21 +66,17 @@ INSERT INTO `compte` (`idcompte`, `solde`, `decouvert`, `client_idclient`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `conseiller` (
-  `idconseiller` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(45) NOT NULL,
-  `prenom` varchar(45) NOT NULL,
-  `mail` varchar(45) NOT NULL,
-  `mdp` varchar(45) NOT NULL,
-  PRIMARY KEY (`idconseiller`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `idconseiller` int(11) NOT NULL,
+  PRIMARY KEY (`idconseiller`),
+  KEY `fk_conseiller_personne1_idx` (`idconseiller`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `conseiller`
 --
 
-INSERT INTO `conseiller` (`idconseiller`, `nom`, `prenom`, `mail`, `mdp`) VALUES
-(1, 'cons1', 'cons1', 'cons1', 'cons1'),
-(2, 'cons2', 'cons2', 'cons2', 'cons2');
+INSERT INTO `conseiller` (`idconseiller`) VALUES
+(2);
 
 -- --------------------------------------------------------
 
@@ -134,9 +89,9 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `dateOpe` date NOT NULL,
   `montantOpe` double NOT NULL,
   `motif` varchar(45) DEFAULT NULL,
-  `compte_idcompte` int(11) NOT NULL,
+  `idcompte` int(11) NOT NULL,
   PRIMARY KEY (`idhistorique`),
-  KEY `fk_historique_compte1_idx` (`compte_idcompte`)
+  KEY `fk_historique_compte1_idx` (`idcompte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -148,12 +103,39 @@ CREATE TABLE IF NOT EXISTS `historique` (
 CREATE TABLE IF NOT EXISTS `messagerie` (
   `idmessagerie` int(11) NOT NULL AUTO_INCREMENT,
   `contenu` varchar(500) NOT NULL,
-  `conseiller_idconseiller` int(11) NOT NULL,
-  `client_idclient` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
+  `idconseiller` int(11) NOT NULL,
   PRIMARY KEY (`idmessagerie`),
-  KEY `fk_messagerie_conseiller1_idx` (`conseiller_idconseiller`),
-  KEY `fk_messagerie_client1_idx` (`client_idclient`)
+  KEY `fk_messagerie_client1_idx` (`idclient`),
+  KEY `fk_messagerie_conseiller1_idx` (`idconseiller`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `personne`
+--
+
+CREATE TABLE IF NOT EXISTS `personne` (
+  `idpersonne` int(11) NOT NULL AUTO_INCREMENT,
+  `prenom` varchar(45) NOT NULL,
+  `nom` varchar(45) NOT NULL,
+  `mail` varchar(45) NOT NULL,
+  `mdp` varchar(45) NOT NULL,
+  `isadmin` tinyint(4) DEFAULT NULL,
+  `isconseiller` tinyint(4) DEFAULT NULL,
+  `isclient` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`idpersonne`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `personne`
+--
+
+INSERT INTO `personne` (`idpersonne`, `prenom`, `nom`, `mail`, `mdp`, `isadmin`, `isconseiller`, `isclient`) VALUES
+(1, 'testadmin', 'testadmin', 'testadmin', 'testadmin', 1, NULL, NULL),
+(2, 'testconseiller', 'testconseiller', 'testconseiller', 'testconseiller', NULL, 1, NULL),
+(3, 'testclient', 'testclient', 'testclient', 'testclient', NULL, NULL, 1);
 
 --
 -- Contraintes pour les tables exportées
@@ -163,26 +145,33 @@ CREATE TABLE IF NOT EXISTS `messagerie` (
 -- Contraintes pour la table `client`
 --
 ALTER TABLE `client`
-  ADD CONSTRAINT `fk_client_conseiller` FOREIGN KEY (`conseiller_idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_client_personne1` FOREIGN KEY (`idclient`) REFERENCES `personne` (`idpersonne`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_client_conseiller1` FOREIGN KEY (`idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `compte`
 --
 ALTER TABLE `compte`
-  ADD CONSTRAINT `fk_compte_client1` FOREIGN KEY (`client_idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_compte_client1` FOREIGN KEY (`idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `conseiller`
+--
+ALTER TABLE `conseiller`
+  ADD CONSTRAINT `fk_conseiller_personne1` FOREIGN KEY (`idconseiller`) REFERENCES `personne` (`idpersonne`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `historique`
 --
 ALTER TABLE `historique`
-  ADD CONSTRAINT `fk_historique_compte1` FOREIGN KEY (`compte_idcompte`) REFERENCES `compte` (`idcompte`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_historique_compte1` FOREIGN KEY (`idcompte`) REFERENCES `compte` (`idcompte`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `messagerie`
 --
 ALTER TABLE `messagerie`
-  ADD CONSTRAINT `fk_messagerie_conseiller1` FOREIGN KEY (`conseiller_idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_messagerie_client1` FOREIGN KEY (`client_idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_messagerie_client1` FOREIGN KEY (`idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_messagerie_conseiller1` FOREIGN KEY (`idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

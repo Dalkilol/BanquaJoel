@@ -5,6 +5,7 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Personne;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ESIC
  */
 @WebServlet(name = "ClientHomeServlet", urlPatterns = {"/ClientHomeServlet"})
-public class ClientHomeServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,7 +73,26 @@ public class ClientHomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String login = request.getParameter("login");
+        String mdp = request.getParameter("mdp");
+        
+        try {
+           /* Personne user = PersonneDao.getBylogAndPass(login, mdp);
+
+            if (user != null) { 
+                request.getSession(true).setAttribute("membre", user); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
+                response.sendRedirect("home");
+                
+                
+                
+            } else {
+                request.setAttribute("msg", "DOMMAGE !"); // on peut maintenant utiliser le msg dans index.jsp (voir ligne d'apres)
+                request.getRequestDispatcher("index.jsp").forward(request, response); // s'il n'a pas envoyé le bon mdp il reste la où il est donc sur index
+            }*/
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
