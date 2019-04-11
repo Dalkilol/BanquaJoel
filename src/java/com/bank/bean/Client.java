@@ -12,9 +12,43 @@ package com.bank.bean;
 public class Client extends Personne{
     
     private int idClient;
-    private int idCons;
+    private Conseiller conseiller;
+
+    public Client(int idpersonne, String nom, String prenom, String mail, String mdp) {
+        super(idpersonne, nom, prenom, mail, mdp);
+    }
+
+    public Client(int idClient, Conseiller conseiller, int idpersonne, String nom, String prenom, String mail, String mdp) {
+        super(idpersonne, nom, prenom, mail, mdp);
+        this.idClient = idClient;
+        this.conseiller = conseiller;
+    }
 
     public Client() {
     }
+    
+    
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
+    }
+
+    public Conseiller getConseiller() {
+        return conseiller;
+    }
+
+    public void setConseiller(Conseiller conseiller) {
+        this.conseiller = conseiller;
+    }
+    
+    
+
+   
+    
+    
     
 }

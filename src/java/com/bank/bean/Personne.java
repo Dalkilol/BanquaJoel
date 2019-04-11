@@ -15,6 +15,9 @@ public class Personne  {
     private String prenom;
     private String mail;
     private String mdp;
+    private boolean isAdmin;
+    private boolean isConseiller;
+    private boolean isClient;
 
     public Personne(int idpersonne, String nom, String prenom, String mail, String mdp) {
         this.idpersonne = idpersonne;
@@ -24,6 +27,30 @@ public class Personne  {
         this.mdp = mdp;
     
 
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isIsConseiller() {
+        return isConseiller;
+    }
+
+    public void setIsConseiller(boolean isConseiller) {
+        this.isConseiller = isConseiller;
+    }
+
+    public boolean isIsClient() {
+        return isClient;
+    }
+
+    public void setIsClient(boolean isClient) {
+        this.isClient = isClient;
     }
 
     public String getNom() {
