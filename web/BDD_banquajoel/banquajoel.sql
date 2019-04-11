@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 11 Avril 2019 à 15:55
+-- Généré le :  Jeu 11 Avril 2019 à 16:09
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `client_idclient` int(11) NOT NULL,
   PRIMARY KEY (`idcompte`),
   KEY `fk_compte_client1_idx` (`client_idclient`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `compte`
@@ -154,6 +154,35 @@ CREATE TABLE IF NOT EXISTS `messagerie` (
   KEY `fk_messagerie_conseiller1_idx` (`conseiller_idconseiller`),
   KEY `fk_messagerie_client1_idx` (`client_idclient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `client`
+--
+ALTER TABLE `client`
+  ADD CONSTRAINT `fk_client_conseiller` FOREIGN KEY (`conseiller_idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `compte`
+--
+ALTER TABLE `compte`
+  ADD CONSTRAINT `fk_compte_client1` FOREIGN KEY (`client_idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `historique`
+--
+ALTER TABLE `historique`
+  ADD CONSTRAINT `fk_historique_compte1` FOREIGN KEY (`compte_idcompte`) REFERENCES `compte` (`idcompte`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `messagerie`
+--
+ALTER TABLE `messagerie`
+  ADD CONSTRAINT `fk_messagerie_conseiller1` FOREIGN KEY (`conseiller_idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_messagerie_client1` FOREIGN KEY (`client_idclient`) REFERENCES `client` (`idclient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
