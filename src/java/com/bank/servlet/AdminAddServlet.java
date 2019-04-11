@@ -91,6 +91,7 @@ public class AdminAddServlet extends HttpServlet {
         try {
 
             AdminConseillerDao.insertConseiller(p);
+            response.sendRedirect("AdminHome");
             
       
         } catch (Exception e) {
