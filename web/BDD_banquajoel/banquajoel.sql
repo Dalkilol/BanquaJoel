@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 11 Avril 2019 à 15:39
+-- Généré le :  Jeu 11 Avril 2019 à 15:55
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `banquajoel`
 --
+DROP schema IF EXISTS `banquajoel`;
 CREATE DATABASE IF NOT EXISTS `banquajoel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `banquajoel`;
 
@@ -52,24 +53,25 @@ INSERT INTO `admin` (`idadmin`, `nom`, `prenom`, `mail`, `mdp`) VALUES
 
 CREATE TABLE IF NOT EXISTS `client` (
   `idclient` int(11) NOT NULL AUTO_INCREMENT,
-  `idconseiller` int(11) NOT NULL,
   `nom` varchar(45) NOT NULL,
   `prenom` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `mdp` varchar(45) NOT NULL,
-  PRIMARY KEY (`idclient`)
+  `conseiller_idconseiller` int(11) NOT NULL,
+  PRIMARY KEY (`idclient`),
+  KEY `fk_client_conseiller_idx` (`conseiller_idconseiller`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`idclient`, `idconseiller`, `nom`, `prenom`, `mail`, `mdp`) VALUES
-(1, 1, 'test1', 'test1', 'test1', 'test1'),
-(2, 1, 'test2', 'test2', 'test2', 'test2'),
-(3, 1, 'test3', 'test3', 'test3', 'test3'),
-(4, 2, 'test4', 'test4', 'test4', 'test4'),
-(5, 2, 'test5', 'test5', 'test5', 'test5');
+INSERT INTO `client` (`idclient`, `nom`, `prenom`, `mail`, `mdp`, `conseiller_idconseiller`) VALUES
+(1, 'test1', 'test1', 'test1', 'test1', 1),
+(2, 'test2', 'test2', 'test2', 'test2', 1),
+(3, 'test3', 'test3', 'test3', 'test3', 1),
+(4, 'test4', 'test4', 'test4', 'test4', 2),
+(5, 'test5', 'test5', 'test5', 'test5', 2);
 
 -- --------------------------------------------------------
 
@@ -79,23 +81,24 @@ INSERT INTO `client` (`idclient`, `idconseiller`, `nom`, `prenom`, `mail`, `mdp`
 
 CREATE TABLE IF NOT EXISTS `compte` (
   `idcompte` int(11) NOT NULL AUTO_INCREMENT,
-  `idclient` int(11) NOT NULL,
   `solde` double NOT NULL,
   `decouvert` double NOT NULL,
-  PRIMARY KEY (`idcompte`)
+  `client_idclient` int(11) NOT NULL,
+  PRIMARY KEY (`idcompte`),
+  KEY `fk_compte_client1_idx` (`client_idclient`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `compte`
 --
 
-INSERT INTO `compte` (`idcompte`, `idclient`, `solde`, `decouvert`) VALUES
-(1, 1, 1000, 0),
-(2, 1, 5000, 0),
-(3, 2, 500, 0),
-(4, 3, 100, 0),
-(5, 4, 10, 0),
-(6, 5, 0, 0);
+INSERT INTO `compte` (`idcompte`, `solde`, `decouvert`, `client_idclient`) VALUES
+(1, 1000, 0, 1),
+(2, 5000, 0, 1),
+(3, 500, 0, 2),
+(4, 100, 0, 3),
+(5, 10, 0, 4),
+(6, 0, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -128,11 +131,12 @@ INSERT INTO `conseiller` (`idconseiller`, `nom`, `prenom`, `mail`, `mdp`) VALUES
 
 CREATE TABLE IF NOT EXISTS `historique` (
   `idhistorique` int(11) NOT NULL AUTO_INCREMENT,
-  `idclient` int(11) NOT NULL,
-  `dateOpe` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateOpe` date NOT NULL,
   `montantOpe` double NOT NULL,
   `motif` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idhistorique`)
+  `compte_idcompte` int(11) NOT NULL,
+  PRIMARY KEY (`idhistorique`),
+  KEY `fk_historique_compte1_idx` (`compte_idcompte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -143,10 +147,12 @@ CREATE TABLE IF NOT EXISTS `historique` (
 
 CREATE TABLE IF NOT EXISTS `messagerie` (
   `idmessagerie` int(11) NOT NULL AUTO_INCREMENT,
-  `id_auteur` int(11) NOT NULL,
-  `id_destinataire` int(11) NOT NULL,
   `contenu` varchar(500) NOT NULL,
-  PRIMARY KEY (`idmessagerie`)
+  `conseiller_idconseiller` int(11) NOT NULL,
+  `client_idclient` int(11) NOT NULL,
+  PRIMARY KEY (`idmessagerie`),
+  KEY `fk_messagerie_conseiller1_idx` (`conseiller_idconseiller`),
+  KEY `fk_messagerie_client1_idx` (`client_idclient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
