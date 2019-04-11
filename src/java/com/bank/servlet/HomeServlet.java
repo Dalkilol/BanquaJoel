@@ -75,6 +75,10 @@ public class HomeServlet extends HttpServlet {
         if (p.isIsConseiller()) {
             request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
         }
+        else{
+            PrintWriter out = response.getWriter();
+            out.println("n'importe quoi ");
+        }
         
         
         

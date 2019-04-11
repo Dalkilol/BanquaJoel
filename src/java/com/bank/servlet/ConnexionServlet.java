@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/Home"})
+@WebServlet(name = "ConnexionServlet", urlPatterns = {"/connect"})
 public class ConnexionServlet extends HttpServlet {
 
     /**
@@ -39,10 +39,10 @@ public class ConnexionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClientHomeServlet</title>");            
+            out.println("<title>Servlet ConnexionServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClientHomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConnexionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,20 +74,17 @@ public class ConnexionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String login = request.getParameter("login");
         String mdp = request.getParameter("mdp");
-        
-        try {
-           Personne personne = PersonneDao.getByLogAndPass(login, mdp);
 
-            if (personne != null) { 
+        try {
+            Personne personne = PersonneDao.getByLogAndPass(login, mdp);
+
+            if (personne != null) {
                 request.getSession(true).setAttribute("user", personne); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
                 response.sendRedirect("Home");
-            
-  
-                
-                
-                
+
             } else {
                 request.setAttribute("msg", "DOMMAGE !"); // on peut maintenant utiliser le msg dans index.jsp (voir ligne d'apres)
                 request.getRequestDispatcher("index.jsp").forward(request, response); // s'il n'a pas envoyé le bon mdp il reste la où il est donc sur index

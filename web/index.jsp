@@ -75,11 +75,11 @@
                 </div>
                 <div class="card-body">
                     <br>
-                    <form>
+                    <form action="connect" method="POST">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter email">
+                                   aria-describedby="emailHelp" placeholder="Enter email" name="login">
                             <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email
                                 avec quelqu’un d’autre</small>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mot de passe</label>
                             <input type="password" class="form-control" id="exampleInputPassword1"
-                                placeholder="Mot de passe">
+                                   placeholder="Mot de passe" name="mdp">
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary btn-raised" style="background-color: steelblue; box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 5px 5px rgba(0,0,0,0.22);">Connexion</button>

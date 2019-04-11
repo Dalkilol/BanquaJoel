@@ -40,6 +40,9 @@ public class PersonneDao {
             p.setPrenom(res.getString("prenom"));
             p.setMail(res.getString("mail"));
             p.setIdpersonne(res.getInt("idpersonne"));
+            p.setIsAdmin(res.getBoolean("isadmin"));
+            p.setIsClient(res.getBoolean("isclient"));
+            p.setIsConseiller(res.getBoolean("isconseiller"));
 
         }
 
