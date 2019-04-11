@@ -15,7 +15,39 @@ import java.sql.SQLException;
  *
  * @author ESIC
  */
+
 public class AdminConseillerDao {
+    
+    
+        public static Personne getByLogAndPass(String log, String pass)
+            throws SQLException {
+        Personne p = null;
+
+        String sql = "SELECT * FROM personne WHERE mail=? AND mdp=?";
+
+        Connection connexion = ConnectConf.getConnection();
+
+        PreparedStatement req = connexion.prepareStatement(sql);
+
+        req.setString(1, log);
+        req.setString(2, pass);
+
+        ResultSet res = req.executeQuery();
+
+        if (res.next()) {
+            p = new Personne();
+            p.setNom(res.getString("nom"));
+            p.setPrenom(res.getString("prenom"));
+            p.setMail(res.getString("mail"));
+            p.setIdpersonne(res.getInt("idpersonne"));
+
+        }
+
+        return p;
+    }
+    
+    
+    
 
     public static void insertConseiller(Personne p)
             throws SQLException {

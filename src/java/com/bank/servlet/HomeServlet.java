@@ -6,6 +6,7 @@
 package com.bank.servlet;
 
 import com.bank.bean.Personne;
+import com.bank.dao.AdminConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/ClientHomeServlet"})
+@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/Home"})
 public class HomeServlet extends HttpServlet {
 
     /**
@@ -77,10 +78,14 @@ public class HomeServlet extends HttpServlet {
         String mdp = request.getParameter("mdp");
         
         try {
-           /* Personne user = PersonneDao.getBylogAndPass(login, mdp);
+           Personne personne = AdminConseillerDao.getByLogAndPass(login, mdp);
 
-            if (user != null) { 
-                request.getSession(true).setAttribute("membre", user); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
+            if (personne != null) { 
+                request.getSession(true).setAttribute("user", personne); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
+                
+                // RAJOUTER LES ISADMIN...
+                
+                
                 response.sendRedirect("home");
                 
                 
@@ -88,7 +93,7 @@ public class HomeServlet extends HttpServlet {
             } else {
                 request.setAttribute("msg", "DOMMAGE !"); // on peut maintenant utiliser le msg dans index.jsp (voir ligne d'apres)
                 request.getRequestDispatcher("index.jsp").forward(request, response); // s'il n'a pas envoyé le bon mdp il reste la où il est donc sur index
-            }*/
+            }
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
