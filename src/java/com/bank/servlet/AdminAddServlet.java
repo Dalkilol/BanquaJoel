@@ -5,6 +5,7 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Personne;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAddServlet"})
+@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAdd"})
 public class AdminAddServlet extends HttpServlet {
 
     /**
@@ -58,7 +59,9 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        
+        
     }
 
     /**
