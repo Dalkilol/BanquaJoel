@@ -7,17 +7,21 @@ package com.bank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import com.bank.bean.Client;
+import com.bank.dao.ClientDao;
 
 /**
  *
  * @author ESIC
  */
-@WebServlet(name = "ConsAddClientServlet", urlPatterns = {"/ConsAddClientServlet"})
+@WebServlet(name = "ConsAddClientServlet", urlPatterns = {"/AddClient"})
 public class ConsAddClientServlet extends HttpServlet {
 
     /**
@@ -58,7 +62,9 @@ public class ConsAddClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        request.getRequestDispatcher("/WEB-INF/conAddClient.jsp").forward(request,response);
+        
     }
 
     /**
@@ -72,7 +78,14 @@ public class ConsAddClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String mail = request.getParameter("mail");
+        String mdp = request.getParameter("mdp");
+        
+               
+        
     }
 
     /**
