@@ -1,67 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.bank.bean;
 
-/**
- *
- * @author ESIC
- */
 public class Messagerie {
     
     private int idmessagerie;
     private String contenu;
-    private int conseiller_idconseiller;
-    private int client_idclient;
+    private int idconseiller;
+    private int idclient;
     
     Messagerie(){
     
     }
     
-    Messagerie(int idmessagerie, String contenu, int conseiller_idconseiller, int client_idclient){
+    Messagerie(int idmessagerie, String contenu, int idconseiller, int idclient){
         
     this.idmessagerie=idmessagerie;
     this.contenu=contenu;
-    this.conseiller_idconseiller=conseiller_idconseiller;
-    this.client_idclient=client_idclient;
+    this.idconseiller=idconseiller;
+    this.idclient=idclient;
     }
 
     public int getIdmessagerie() {
         return idmessagerie;
     }
 
-    public String getContenu() {
-        return contenu;
-    }
-
-    public int getConseiller_idconseiller() {
-        return conseiller_idconseiller;
-    }
-
-    public int getClient_idclient() {
-        return client_idclient;
-    }
-
     public void setIdmessagerie(int idmessagerie) {
         this.idmessagerie = idmessagerie;
+    }
+
+    public String getContenu() {
+        return contenu;
     }
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
 
-    public void setConseiller_idconseiller(int conseiller_idconseiller) {
-        this.conseiller_idconseiller = conseiller_idconseiller;
+    public int getIdconseiller() {
+        return idconseiller;
     }
 
-    public void setClient_idclient(int client_idclient) {
-        this.client_idclient = client_idclient;
+    public void setIdconseiller(int idconseiller) {
+        this.idconseiller = idconseiller;
+    }
+
+    public int getIdclient() {
+        return idclient;
+    }
+
+    public void setIdclient(int idclient) {
+        this.idclient = idclient;
     }
     
+    
     public String InfoMessagerie(){
-    return "Id Messagerie : "+idmessagerie+" | Contenu : " + contenu+" | Id Client : "+client_idclient+" | Id conseiller : " + conseiller_idconseiller;
+    return "Id Messagerie : "+idmessagerie+" | Contenu : " + contenu+" | Id Client : "+idclient+" | Id conseiller : " + idconseiller;
     }
     
 }
