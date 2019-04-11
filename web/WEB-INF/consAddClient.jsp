@@ -22,7 +22,27 @@
                     One of three columns
                 </div>
                 <div class="col-sm">
-                    One of three columns
+                                        
+                    <form action="AddClient" methode="POST">                        
+                        <div class="form-group" >
+                            <input class="front-control" type="text" placeholder="Nom" name="nom">                         
+                        </div>
+                        <div class="form-group" >
+                            <input class="front-control" type="text" placeholder="Préom" name="prenom">                         
+                        </div>
+                        <div class="form-group" >
+                            <input class="front-control" type="text" placeholder="e-mail" name="mail">                         
+                        </div>   
+                        <div class="form-group">
+                            <input class="front-control" type="password" placeholder="mot de passe" name="mdp">
+                        </div>
+                        <div style = "align-items: center">                    
+                            <button type="submit" class="btn btn-danger"> Envoyer </button>
+                        </div>
+                                                                       
+                    </form>
+                    
+                                       
                 </div>
                 <div class="col-sm">
                     One of three columns
