@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAdd"})
-public class AdminAddServlet extends HttpServlet {
+@WebServlet(name = "AdminModifyServlet", urlPatterns = {"/AdminModify"})
+public class AdminModifyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class AdminAddServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminAddServlet</title>");            
+            out.println("<title>Servlet AdminModifyServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminAddServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminModifyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,9 +60,7 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("/WEB-INF/adminAddConseiller.jsp").forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -76,7 +74,7 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String mail = request.getParameter("mail");
@@ -90,7 +88,7 @@ public class AdminAddServlet extends HttpServlet {
 
         try {
 
-            AdminConseillerDao.insertConseiller(p);
+            AdminConseillerDao.updateConseiller(p);
             response.sendRedirect("AdminHome");
             
       

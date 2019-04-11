@@ -6,7 +6,6 @@
 package com.bank.servlet;
 
 import com.bank.bean.Personne;
-import com.bank.dao.AdminConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAdd"})
-public class AdminAddServlet extends HttpServlet {
+@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/ClientHomeServlet"})
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class AdminAddServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminAddServlet</title>");            
+            out.println("<title>Servlet ClientHomeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminAddServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ClientHomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,9 +59,7 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("/WEB-INF/adminAddConseiller.jsp").forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -76,30 +73,26 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String mail = request.getParameter("mail");
+        String login = request.getParameter("login");
         String mdp = request.getParameter("mdp");
-
-        Personne p = new Personne();
-        p.setNom(nom);
-        p.setPrenom(prenom);
-        p.setMail(mail);
-        p.setMdp(mdp);
-
+        
         try {
+           /* Personne user = PersonneDao.getBylogAndPass(login, mdp);
 
-            AdminConseillerDao.insertConseiller(p);
-            response.sendRedirect("AdminHome");
-            
-      
+            if (user != null) { 
+                request.getSession(true).setAttribute("membre", user); // on crée une session et c'est le user qui s'est connecté qu'on associe à la session à travers membre (membre est de type Personne)
+                response.sendRedirect("home");
+                
+                
+                
+            } else {
+                request.setAttribute("msg", "DOMMAGE !"); // on peut maintenant utiliser le msg dans index.jsp (voir ligne d'apres)
+                request.getRequestDispatcher("index.jsp").forward(request, response); // s'il n'a pas envoyé le bon mdp il reste la où il est donc sur index
+            }*/
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
         }
-        
-        
     }
 
     /**

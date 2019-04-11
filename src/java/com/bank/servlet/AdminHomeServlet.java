@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "ClientHomeServlet", urlPatterns = {"/ClientHomeServlet"})
-public class ClientHomeServlet extends HttpServlet {
+@WebServlet(name = "AdminHomeServlet", urlPatterns = {"/AdminHome"})
+public class AdminHomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class ClientHomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClientHomeServlet</title>");            
+            out.println("<title>Servlet AdminHomeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClientHomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminHomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,6 +59,8 @@ public class ClientHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
     }
 
     /**
