@@ -88,6 +88,14 @@ public class Personne  {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    public int getIdconseiller() {
+        return idconseiller;
+    }
+
+    public void setIdconseiller(int idconseiller) {
+        this.idconseiller = idconseiller;
+    }
     
 
 }
