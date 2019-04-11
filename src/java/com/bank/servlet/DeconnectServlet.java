@@ -58,8 +58,12 @@ public class DeconnectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+            request.getSession().invalidate();                                          //deconnexion de la session
+            request.setAttribute("msg", "Déconnexion réussie");            //Message 
+            request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
