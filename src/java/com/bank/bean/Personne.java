@@ -13,25 +13,24 @@ public class Personne  {
     private String nom;
     private String prenom;
     private String mail;
-    private String photo;
     private String mdp;
     private int id;
     private int idconseiller;
 
-    public Personne(String nom, String prenom, String mail, String mdp, String id) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-    }
-
-    
-    
-    public Personne(String nom, String prenom, String mail, String mdp, int id, int idconseiller) {
+    public Personne(String nom, String prenom, String mail, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.mdp = mdp;
-        this.id = id;
+    }
+
+    
+    
+    public Personne(String nom, String prenom, String mail, String mdp, int idconseiller) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.mdp = mdp;
         this.idconseiller = idconseiller;
     }
 
@@ -57,13 +56,7 @@ public class Personne  {
     public Personne() {
     }
 
-    public String getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     
     
