@@ -58,8 +58,9 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        
+            //request.getRequestDispatcher("/WEB-INF/conseillerAddCompte.jsp").forward(request, response);    //
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
