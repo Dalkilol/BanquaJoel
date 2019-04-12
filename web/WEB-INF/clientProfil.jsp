@@ -1,9 +1,10 @@
 <%-- 
-    Document   : clientMsg
-    Created on : 11 avr. 2019, 13:42:27
-    Author     : ESIC
+    Document   : clientProfil
+    Created on : 12 avr. 2019, 14:42:18
+    Author     : stagiaire
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,32 +16,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body style="#eff9f1">
-        <%@include file="menuClient.jsp" %>
+    <body>
         <div class="container">
-            <div class="row bg-white">
+            <div class="row">
                 <div class="col-sm">
-                    One of three columns
-                </div>
-                <div class="col-sm">
-                    <br><br>
-                    <h6>Messages précédents</h6>
+
+                    <input class="front-control" type="text" placeholder="Nouvel email" name="Newmail">
+                    <input class="front-control" type="text" placeholder="Nouveau mot de passe" name="Newmdp">
                     
-                    <form action ="MessagerieServlet" method="POST">
-                  
-                       <div class="form-group text-center">
-                           <div class ="card">
-                           <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
-                           </div>
-                       </div>
-                       <div class="form-group text-center">
-                           <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
-                       </div>
+                    <form action="ModifClient" method="POST">
+                        <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Modifier vos informations</button>
                     </form>
+                    
                 </div>
-                <div class="col-sm">
-                    One of three columns ${client.nom}
-                </div>
+                
+                
             </div>
         </div>
     </body>

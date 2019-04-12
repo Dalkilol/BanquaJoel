@@ -82,12 +82,12 @@ public class AdminDeleteServlet extends HttpServlet {
         Personne p = new Personne();
         p.setIdpersonne(id);
         p.setNom(nom);
-        
+
         try {
             String msg = AdminDao.desactiveConseiller(p);
-            request.setAttribute("msgAdmin", "<p class='text-success text-center'><strong>" +msg+"</strong></p>");
+            request.setAttribute("msgAdmin", msg);
             request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
-            
+
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
