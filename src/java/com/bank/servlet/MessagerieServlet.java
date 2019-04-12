@@ -5,6 +5,12 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Messagerie;
+import com.bank.bean.Conseiller;
+import com.bank.bean.Client;
+import com.bank.bean.Personne;
+import com.bank.dao.MsgDao;
+import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -58,7 +65,25 @@ public class MessagerieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user",p);
+        
+        if (p.isIsClient()) {
+            Client cl = (Client) session.getAttribute("user");
+            request.setAttribute("client", cl);
+            request.getRequestDispatcher("/WEB-INF/clientMsg.jsp").forward(request, response);
+        }
+        if (p.isIsConseiller()) {
+            Conseiller co = (Conseiller) session.getAttribute("user");
+            request.setAttribute("conseiller", co);
+            request.getRequestDispatcher("/WEB-INF/consMsgConseiller.jsp").forward(request, response);
+        }
+        else{
+            PrintWriter out = response.getWriter();
+            out.println("n'importe quoi ");
+        }
+        
     }
 
     /**
@@ -72,7 +97,32 @@ public class MessagerieServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        Client cl = (Client) session.getAttribute("client");
+        Conseiller conseiller = new Conseiller(); 
+        conseiller = cl.getConseiller(); 
+        
+        String contenu = request.getParameter("msgCient");
+        int idClient = cl.getIdClient();
+        
+        int idConseiller = conseiller.getIdConseiller();
+
+        Messagerie m = new Messagerie();
+        m.setContenu(contenu);
+        m.setIdclient(idClient);
+        m.setIdconseiller(idConseiller);
+       
+
+        try {
+
+            MsgDao.insertMsgClient(m);
+            response.sendRedirect("MessagerieServlet");
+            
+      
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**

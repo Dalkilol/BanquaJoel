@@ -49,6 +49,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Mes opérations</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/WEB-INF/clientMsg.jsp">Messagerie</a>
+                    </li>
 
 
                     <li class="nav-item">
