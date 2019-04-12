@@ -5,10 +5,13 @@
  */
 package com.bank.servlet;
 import com.bank.bean.Client;
+import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
+import com.bank.dao.AdminDao;
 import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,9 +71,19 @@ Personne p = (Personne) session.getAttribute("user");
 request.setAttribute("user",p);
 
 if (p.isIsAdmin()) {
-    request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
+    
+    try {
+       List<Personne> personnes = AdminDao.getAllConseiller();
+    request.setAttribute("allConseillers", personnes);
+    request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response); 
+    } catch (Exception e) {
+        PrintWriter out = response.getWriter();
+        out.println(e.getMessage());
+    }
+    
+    
 }
-if (p.isIsClient()) {
+if (p.isIsClient() ) {
     try {
         Client c  = PersonneDao.getClient(p);
         
@@ -83,9 +96,24 @@ if (p.isIsClient()) {
     }
     request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
 }
+
+
 if (p.isIsConseiller()) {
+ /*   try {
+        Conseiller con  = PersonneDao.getConseiller(p);
+        
+        
+        request.getSession(true).setAttribute("conseiller", con);
+    } catch (Exception e) {
+        PrintWriter out = response.getWriter();
+        System.out.println(e.getMessage());
+        out.println("c'est a moi que tu parles ? " + e.getMessage());
+    }
+  */  
     request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
 }
+
+
 else{
     PrintWriter out = response.getWriter();
     out.println("n'importe quoi ");

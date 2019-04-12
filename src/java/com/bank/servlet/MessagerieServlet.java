@@ -109,7 +109,6 @@ public class MessagerieServlet extends HttpServlet {
             throws ServletException, IOException {
         
         System.out.println("qzerohqzeruifhqzeruiqeuirqeuirqeriqeiruqeirughqzeiruqeigh");
-        request.setAttribute("testest", "ceci est un test");
         HttpSession session = request.getSession(true);
         Client cl = (Client) session.getAttribute("client");
         Conseiller conseiller = new Conseiller(); 
