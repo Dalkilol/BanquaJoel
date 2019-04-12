@@ -50,7 +50,7 @@ public class PersonneDao {
         return p;
     }
 
-    public static Personne RecherchePersonne1(String nom, String prenom)
+    public static Personne RecherchePersonne(String nom, String prenom)
         throws SQLException{
         
         Personne p = null;
@@ -108,10 +108,10 @@ public class PersonneDao {
     
     public static Conseiller getConseiller(Personne p) throws SQLException {
         Conseiller con = null;
-        String sql = "SELECT * \n"
-                + "FROM conseiller cons INNER JOIN personne pe\n"
-                + "on cons.idconseiller = pe.idpersonne\n"
-                + "WHERE pe.idpersonne = ?;";
+        String sql = "SELECT * "
+                + "FROM conseiller con INNER JOIN personne per "
+                + "ON con.idconseiller = per.idpersonne "
+                + "WHERE per.idpersonne = ?;";
 
         Connection connexion = ConnectConf.getConnection();
 
@@ -120,7 +120,7 @@ public class PersonneDao {
 
         ResultSet res = req.executeQuery();
 
-        con.setIdConseiller(res.getInt("id"));
+        con.setIdConseiller(res.getInt("idconseiller"));
 
         return con;
     }

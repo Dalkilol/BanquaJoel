@@ -90,7 +90,7 @@ public class ConsAddClientServlet extends HttpServlet {
 
         try {
 
-            p = PersonneDao.RecherchePersonne1(nom, prenom);
+            p = PersonneDao.RecherchePersonne(nom, prenom);
             if (p != null){
 //              com.bank.dao.ClientDao.AddClient(p, c);
             }
