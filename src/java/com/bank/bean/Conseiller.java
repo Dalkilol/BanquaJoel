@@ -10,7 +10,7 @@ package com.bank.bean;
  * @author ESIC
  */
 public class Conseiller extends Personne{
-    private int idConseiller;
+    private int idconseiller;
 
     public Conseiller(int idpersonne, String nom, String prenom, String mail, String mdp) {
         super(idpersonne, nom, prenom, mail, mdp);
@@ -20,11 +20,11 @@ public class Conseiller extends Personne{
     }
 
     public int getIdConseiller() {
-        return idConseiller;
+        return idconseiller;
     }
 
     public void setIdConseiller(int idConseiller) {
-        this.idConseiller = idConseiller;
+        this.idconseiller = idConseiller;
     }
     
     

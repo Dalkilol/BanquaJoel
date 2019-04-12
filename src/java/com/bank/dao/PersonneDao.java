@@ -85,8 +85,8 @@ public class PersonneDao {
         ordre.execute();
     }
 
-        public static Personne selectConseiller(Personne p)
-            throws SQLException {
+    public static Personne selectConseiller(Personne p)
+        throws SQLException {
         String sql = "SELECT * FROM conseiller WHERE conseiller.idconseiller=?";
 
         Connection connexion = ConnectConf.getConnection();
@@ -103,9 +103,39 @@ public class PersonneDao {
              p.setMail(rs.getString("mail"));
              p.setMdp(rs.getString("mdp"));
 
-         }
+        }
         return p;
         
+    }
+    
+    public static Personne RecherchePersonne1(String nom, String prenom)
+        throws SQLException{
+        
+        Personne p = null;
+        
+        String sql = "SELECT * FROM personne WHERE nom=? AND prenom=?";
+        
+        Connection connexion = ConnectConf.getConnection();
+        
+        PreparedStatement req = connexion.prepareStatement(sql);
+        
+        req.setString(1, nom);
+        req.setString(2, prenom);
+        
+        ResultSet res  = req.executeQuery();
+        
+        if (res.next()){
+            p = new Personne();
+            p.setNom(res.getString("nom"));
+            p.setPrenom(res.getString("prenom"));
+            p.setMail(res.getString("mail"));
+            p.setIsAdmin(res.getBoolean("isadmin"));
+            p.setIsConseiller(res.getBoolean("isconseiller"));
+            p.setIsClient(res.getBoolean("isclient"));            
         }
+        
+        return p;
+    }
+        
     
 }
