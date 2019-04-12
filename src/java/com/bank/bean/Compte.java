@@ -28,6 +28,11 @@ public class Compte {
     this.idclient=idclient;
     }
 
+    public Compte(int idclient){
+    this.idclient=idclient;
+    }
+    
+    
     public int getIdcompte() {
         return idcompte;
     }
