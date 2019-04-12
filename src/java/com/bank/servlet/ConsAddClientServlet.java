@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.bank.bean.Client;
+import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import com.bank.dao.ClientDao;
 import com.bank.dao.PersonneDao;
@@ -81,22 +82,31 @@ public class ConsAddClientServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(true);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user", p);
+        
+        Conseiller conseiller = (Conseiller) session.getAttribute("conseiller");
+        request.setAttribute("conseiller", conseiller);
+        
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
 
-        Personne p = new Personne();
-//        p.setNom(nom);
-//        p.setPrenom(prenom);
+        Personne personne = new Personne();
+
+        p.setNom(nom);
+        p.setPrenom(prenom);
 
         try {
 
             p = PersonneDao.RecherchePersonne(nom, prenom);
             if (p != null){
-//              com.bank.dao.ClientDao.AddClient(p, c);
+              ClientDao.AddClient(p, conseiller);
             }
             else{
                 
             }
+            request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
             
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
