@@ -8,7 +8,10 @@ package com.bank.dao;
 import com.bank.bean.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,6 +35,30 @@ public class MsgDao {
         ordre.setInt(3, idc);
 
         ordre.execute();
+    }
+    
+    public static List<Messagerie> getMsgClient(Client c)
+            throws SQLException {
+        
+        List<Messagerie> messages = new ArrayList<Messagerie>();
+        String sql = "SELECT * FROM banquajoel.messagerie WHERE idclient = ? ORDER BY idmessagerie";
+        
+        int id = c.getIdClient();
+       
+        Connection connexion = ConnectConf.getConnection();
+        PreparedStatement req = connexion.prepareStatement(sql);
+        req.setInt(1, id);
+        ResultSet res = req.executeQuery();
+        
+        while(res.next()){
+            Messagerie m = new Messagerie();
+            m.setIdclient(id);
+            m.setIdconseiller(res.getInt("idconseiller"));
+            m.setContenu(res.getString("contenu"));
+            messages.add(m);
+        }
+        return messages;
+              
     }
     
 }
