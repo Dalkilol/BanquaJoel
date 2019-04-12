@@ -33,7 +33,7 @@
                            <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
                            </div>
                        </div>
-                       <div class="form-group text-center"
+                       <div class="form-group text-center">
                            <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
                        </div>
                     </form>
