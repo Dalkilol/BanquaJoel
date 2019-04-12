@@ -5,8 +5,6 @@
  */
 package com.bank.servlet;
 
-import com.bank.bean.Compte;
-import com.bank.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ESIC
+ * @author stagiaire
  */
-@WebServlet(name = "ConsAddCompteServlet", urlPatterns = {"/AddCompte"})
-public class ConsAddCompteServlet extends HttpServlet {
+@WebServlet(name = "ClientModifyServlet", urlPatterns = {"/ClientModifyServlet"})
+public class ClientModifyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +37,10 @@ public class ConsAddCompteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsAddCompteServlet</title>");
+            out.println("<title>Servlet ClientModifyServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConsAddCompteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ClientModifyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,8 +58,9 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //request.getRequestDispatcher("/WEB-INF/conseillerAddCompte.jsp").forward(request, response);    //à rediriger vers la page jsp nécessaire
+        processRequest(request, response);
+        
+        request.getRequestDispatcher("clientProfil.jsp").forward(request, response);
     }
 
     /**
@@ -75,30 +74,14 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String idcompte = request.getParameter("idcompte");
-        String solde = request.getParameter("solde");
-        String decouvert = request.getParameter("decouvert");
-        String idclient = request.getParameter("idclient");
-
-        Compte c = new Compte();
-        c.setIdcompte(Integer.parseInt(idcompte));
-        c.setSolde(Double.parseDouble(solde));
-        c.setDecouvert(Double.parseDouble(decouvert));
-        c.setIdclient(Integer.parseInt(idclient));
-
-        try {
-
-            CompteDao.insertCompte(c);
-            response.sendRedirect("Home");
-
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
-
+        processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
