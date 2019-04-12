@@ -6,6 +6,7 @@
 package com.bank.servlet;
 
 import com.bank.bean.Client;
+import com.bank.bean.Personne;
 import static com.bank.dao.ClientDao.updateInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author stagiaire
  */
-@WebServlet(name = "ClientModifyServlet", urlPatterns = {"/MonProfil"})
+@WebServlet(name = "ClientModifyServlet", urlPatterns = {"/ModifClient"})
 public class ClientModifyServlet extends HttpServlet {
 
     /**
@@ -78,13 +79,15 @@ public class ClientModifyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        
+        HttpSession session = request.getSession(true);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user",p);
         
  
         String mdp = request.getParameter("Newmdp");
         String mail = request.getParameter("Newmail");
        
-        Client c = new Client();
+        Client c = (Client) session.getAttribute("client");
         
         try {
     
