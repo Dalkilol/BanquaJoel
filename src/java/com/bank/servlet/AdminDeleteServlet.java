@@ -60,7 +60,21 @@ public class AdminDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String iD = request.getParameter("id");
+        int id = Integer.parseInt(iD);
+
+        Personne p = new Personne();
+        p.setIdpersonne(id);
+
+        try {
+            String msg = AdminDao.desactiveConseiller(p);
+            request.setAttribute("msgAdmin", msg);
+            response.sendRedirect("Home");
+
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
@@ -75,23 +89,7 @@ public class AdminDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String iD = request.getParameter("id");
-        int id = Integer.parseInt(iD);
-        String nom = request.getParameter("nom");
-
-        Personne p = new Personne();
-        p.setIdpersonne(id);
-        p.setNom(nom);
-
-        try {
-            String msg = AdminDao.desactiveConseiller(p);
-            request.setAttribute("msgAdmin", msg);
-            request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
+       
     }
 
     /**

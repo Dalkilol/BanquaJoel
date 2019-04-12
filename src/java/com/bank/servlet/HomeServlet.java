@@ -73,9 +73,11 @@ request.setAttribute("user",p);
 if (p.isIsAdmin()) {
     
     try {
-       List<Personne> personnes = AdminDao.getAllConseiller();
+    List<Personne> personnes = AdminDao.getAllConseiller();
     request.setAttribute("allConseillers", personnes);
     request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response); 
+    
+    
     } catch (Exception e) {
         PrintWriter out = response.getWriter();
         out.println(e.getMessage());
