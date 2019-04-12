@@ -20,6 +20,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
+                    
+                    <p>Nom : </p> <br>
+                    <p>Prenom : </p> <br>
+                    <p>mail : </p> <br>
+                    <p>mdp : </p> <br>
 
                     <input class="front-control" type="text" placeholder="Nouvel email" name="Newmail">
                     <input class="front-control" type="text" placeholder="Nouveau mot de passe" name="Newmdp">

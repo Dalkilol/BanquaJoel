@@ -99,6 +99,7 @@ public class ClientModifyServlet extends HttpServlet {
         try {
     
             updateInfo(c, mail, mdp);
+            response.sendRedirect("ModifClient");
             /*
             out.println("Nom" + c.getNom());
             out.println("Prenom" + c.getPrenom());
