@@ -4,6 +4,7 @@
     Author     : ESIC
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,6 @@
                     <div class="card">
                         <div class="card-header" style="background-color: #bae0be">
                             <h3 style="color: black; text-align: center;">Gestion des conseillers</h3>
-
                         </div>
                         <div class ="card-body">
                             <p class="actualite">Vous retrouverez ici toutes les actions que vous pouvez effectuer pour la création,
@@ -63,7 +63,6 @@
                                 <div class="row justify-content-arround">
                                     <div class="col-4">
                                         <button type="button" class="btn btn-outline-dark justify-content-arround" data-toggle="modal" data-target="#ajout">Ajouter conseiller</button>
-
                                         <div class="modal fade" id="ajout" tabindex="-1" role="dialog" aria-labelledby="ajout" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -74,8 +73,7 @@
                                                         </button>
                                                     </div>
                                                     <form action="AdminAdd" method="POST">
-                                                    <div class="modal-body">
-                                                        
+                                                        <div class="modal-body">
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" required placeholder="Nom" name="nom">
                                                             </div>
@@ -88,23 +86,81 @@
                                                             <div class="form-group">
                                                                 <input type="password" class="form-control" required placeholder="Mot de passe" name="mdp">
                                                             </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
-                                                        <button type="submit" class="btn btn-primary">Valider</button>
-                                                    </div>
-                                                        
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                                                            <button type="submit" class="btn btn-primary">Valider</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-4">
-                                        <button type="button" class="btn btn-outline-dark justify-content-arround">Modifier conseiller</button>
+                                        <button type="button" class="btn btn-outline-dark justify-content-arround" data-toggle="modal" data-target="#modif">Modifier conseiller</button>
+                                        <div class="modal fade" id="modif" tabindex="-1" role="dialog" aria-labelledby="modif" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modif">Modifier un conseiller</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="AdminModif" method="POST">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Nom" name="nom">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Prenom" name="prenom">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Mail" name="mail">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="password" class="form-control" required placeholder="Mot de passe" name="mdp">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                                                            <button type="submit" class="btn btn-primary">Valider</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="col-4">
-                                        <button type="button" class="btn btn-outline-dark justify-content-arround">Supprimer conseiller</button>
+                                        <button type="button" class="btn btn-outline-dark justify-content-arround" data-toggle="modal" data-target="#supprimer">Desactiver conseiller</button>
+                                        <div class="modal fade" id="supprimer" tabindex="-1" role="dialog" aria-labelledby="supprimer" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="supprimer">Desactiver un conseiller</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="AdminDel" method="POST">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="ID du conseiller" name="id">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Nom du conseiller" name="nom">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                                                            <button type="submit" class="btn btn-primary">Valider</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div> 
                             </div>
@@ -113,6 +169,32 @@
                 </div>
 
             </div>
-
+            <div class="row bg-white p-5">
+                <div class="col">
+                    <table class="table text-center">
+                        <thead style="background-color: #bae0be">
+                            <tr>
+                                <th scope="col">ID conseiller</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Mail</th>
+                                <th scope="col">Mot de passe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${allConseillers}" var="m">
+                                <tr>    
+                                    <td>${m.idpersonne}</td>
+                                    <td>${m.nom}</td>
+                                    <td>${m.prenom}</td>
+                                    <td>${m.mail}</td>
+                                    <td>${m.mdp}</td>
+                                </tr> 
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>   
+            </div>
+        </div
     </body>
 </html>

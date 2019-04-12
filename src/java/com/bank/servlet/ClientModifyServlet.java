@@ -5,8 +5,11 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Client;
+import static com.bank.dao.ClientDao.updateInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stagiaire
  */
-@WebServlet(name = "ClientModifyServlet", urlPatterns = {"/ClientModifyServlet"})
+@WebServlet(name = "ClientModifyServlet", urlPatterns = {"/MonProfil"})
 public class ClientModifyServlet extends HttpServlet {
 
     /**
@@ -58,9 +61,25 @@ public class ClientModifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            
+        String mdp = request.getParameter("mdp");
+        String mail = request.getParameter("mail");
+       
+        try {
+            
+            //Client c = ${user};
+            Client c = null;
+            updateInfo(c, mail, mdp);
+            out.println("Nom" + c.getNom());
+            out.println("Prenom" + c.getPrenom());
+            out.println("Nouveau mail" + c.getMail());
+            out.println("ID" + c.getIdpersonne());
+            out.println("Nouveau mdp" + c.getMdp());
         
-        request.getRequestDispatcher("clientProfil.jsp").forward(request, response);
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
