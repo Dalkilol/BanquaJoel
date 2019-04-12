@@ -5,7 +5,9 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Client;
 import com.bank.bean.Personne;
+import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -70,6 +72,16 @@ public class HomeServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
         }
         if (p.isIsClient()) {
+            try {
+                Client c  = PersonneDao.getClient(p);
+                
+                
+                request.getSession(true).setAttribute("client", c);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                System.out.println(e.getMessage());
+                out.println("c'est a moi que tu parles ? " + e.getMessage());
+            }
             request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
         }
         if (p.isIsConseiller()) {

@@ -50,7 +50,8 @@
                         <a class="nav-link" href="#">Mes opérations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/WEB-INF/clientMsg.jsp">Messagerie</a>
+                        <form action="MessagerieServlet" method="GET">
+                            <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Messagerie</button>
                     </li>
 
 

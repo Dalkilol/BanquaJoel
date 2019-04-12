@@ -5,6 +5,8 @@
  */
 package com.bank.dao;
 
+import com.bank.bean.Client;
+import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,11 +17,9 @@ import java.sql.SQLException;
  *
  * @author ESIC
  */
-
 public class PersonneDao {
-    
-    
-        public static Personne getByLogAndPass(String log, String pass)
+
+    public static Personne getByLogAndPass(String log, String pass)
             throws SQLException {
         Personne p = null;
 
@@ -48,9 +48,6 @@ public class PersonneDao {
 
         return p;
     }
-    
-    
-    
 
     public static void insertConseiller(Personne p)
             throws SQLException {
@@ -86,56 +83,81 @@ public class PersonneDao {
     }
 
     public static Personne selectConseiller(Personne p)
-        throws SQLException {
+            throws SQLException {
         String sql = "SELECT * FROM conseiller WHERE conseiller.idconseiller=?";
 
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setInt(1, p.getIdpersonne());
         ordre.execute();
-        
+
         ResultSet rs = ordre.executeQuery();
-         if(rs.next()){
-             p = new Personne();
-             p.setIdpersonne(rs.getInt("idpersonne"));
-             p.setNom(rs.getString("nom"));
-             p.setPrenom(rs.getString("prenom"));
-             p.setMail(rs.getString("mail"));
-             p.setMdp(rs.getString("mdp"));
+        if (rs.next()) {
+            p = new Personne();
+            p.setIdpersonne(rs.getInt("idpersonne"));
+            p.setNom(rs.getString("nom"));
+            p.setPrenom(rs.getString("prenom"));
+            p.setMail(rs.getString("mail"));
+            p.setMdp(rs.getString("mdp"));
 
         }
         return p;
-        
+
     }
-    
+
     public static Personne RecherchePersonne1(String nom, String prenom)
-        throws SQLException{
-        
+            throws SQLException {
+
         Personne p = null;
-        
+
         String sql = "SELECT * FROM personne WHERE nom=? AND prenom=?";
-        
+
         Connection connexion = ConnectConf.getConnection();
-        
+
         PreparedStatement req = connexion.prepareStatement(sql);
-        
+
         req.setString(1, nom);
         req.setString(2, prenom);
-        
-        ResultSet res  = req.executeQuery();
-        
-        if (res.next()){
+
+        ResultSet res = req.executeQuery();
+
+        if (res.next()) {
             p = new Personne();
             p.setNom(res.getString("nom"));
             p.setPrenom(res.getString("prenom"));
             p.setMail(res.getString("mail"));
             p.setIsAdmin(res.getBoolean("isadmin"));
             p.setIsConseiller(res.getBoolean("isconseiller"));
-            p.setIsClient(res.getBoolean("isclient"));            
+            p.setIsClient(res.getBoolean("isclient"));
         }
-        
+
         return p;
     }
+
+    public static Client getClient(Personne p) throws SQLException {
+        Client c = null;
+        String sql = "SELECT * \n"
+                + "FROM client cl INNER JOIN personne pe\n"
+                + "on cl.idclient = pe.idpersonne\n"
+                + "WHERE pe.idpersonne = ?;";
+
+        Connection connexion = ConnectConf.getConnection();
+
+        PreparedStatement req = connexion.prepareStatement(sql);
+        req.setInt(1, p.getIdpersonne());
+
+        ResultSet res = req.executeQuery();
+
+        if (res.next()) {
+            Conseiller cons = new Conseiller();
+            cons.setIdConseiller(res.getInt("idconseiller"));
+                        
+            c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
+           
+        }
+
         
-    
+        return c;
+    }
+
 }

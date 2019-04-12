@@ -69,9 +69,19 @@ public class MessagerieServlet extends HttpServlet {
         Personne p = (Personne) session.getAttribute("user");
         request.setAttribute("user",p);
         
+ 
         if (p.isIsClient()) {
-            Client cl = (Client) session.getAttribute("user");
-            request.setAttribute("client", cl);
+            Client client = (Client) session.getAttribute("client");
+           
+            /*try {
+                System.out.println("tes jojo" + client.getNom());
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println("erre try syso" + e.getMessage());
+            }*/
+           
+            request.setAttribute("client", client);
+            
             request.getRequestDispatcher("/WEB-INF/clientMsg.jsp").forward(request, response);
         }
         if (p.isIsConseiller()) {

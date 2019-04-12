@@ -39,7 +39,7 @@
                             <span class="bmd-form-group"><textarea rows ="3" name="msgClient"></textarea></span>
                         </div>
                         <div class="form-group"> 
-                       <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Envoyer</button>
+                       <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Envoyer ${client.idClient}</button>
                         </div> 
                                </form>
                 </div>
@@ -48,6 +48,8 @@
                 </div>
                 <div class="col-sm">
                     One of three columns
+                    
+                    ${client.nom}
                 </div>
             </div>
         </div>
