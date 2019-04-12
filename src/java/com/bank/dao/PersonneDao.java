@@ -73,37 +73,64 @@ public class PersonneDao {
             p.setMail(res.getString("mail"));
             p.setIsAdmin(res.getBoolean("isadmin"));
             p.setIsConseiller(res.getBoolean("isconseiller"));
-            p.setIsClient(res.getBoolean("isclient"));            
+            p.setIsClient(res.getBoolean("isclient"));          
         }
         
         return p;
     }
         
     public static Client getClient(Personne p) throws SQLException {
-    Client c = null;
-    String sql = "SELECT * \n"
-            + "FROM client cl INNER JOIN personne pe\n"
-            + "on cl.idclient = pe.idpersonne\n"
-            + "WHERE pe.idpersonne = ?;";
+        Client c = null;
+        String sql = "SELECT * \n"
+                + "FROM client cl INNER JOIN personne pe\n"
+                + "on cl.idclient = pe.idpersonne\n"
+                + "WHERE pe.idpersonne = ?;";
 
-    Connection connexion = ConnectConf.getConnection();
+        Connection connexion = ConnectConf.getConnection();
 
-    PreparedStatement req = connexion.prepareStatement(sql);
-    req.setInt(1, p.getIdpersonne());
+        PreparedStatement req = connexion.prepareStatement(sql);
+        req.setInt(1, p.getIdpersonne());
 
-    ResultSet res = req.executeQuery();
+        ResultSet res = req.executeQuery();
 
-    if (res.next()) {
-        Conseiller cons = new Conseiller();
-        cons.setIdConseiller(res.getInt("idconseiller"));
+        if (res.next()) {
+            Conseiller cons = new Conseiller();
+            cons.setIdConseiller(res.getInt("idconseiller"));
                     
-        c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
+            c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
        
-    }
+        }
 
     
     return c;
-}
+    }
 
+/*    
+    public static Conseiller getConseiller(Personne p) throws SQLException {
+        Conseiller con = null;
+        String sql = "SELECT * \n"
+                + "FROM conseiller cons INNER JOIN personne pe\n"
+                + "on cons.idconseiller = pe.idpersonne\n"
+                + "WHERE pe.idpersonne = ?;";
+
+        Connection connexion = ConnectConf.getConnection();
+
+        PreparedStatement req = connexion.prepareStatement(sql);
+        req.setInt(1, p.getIdpersonne());
+
+        ResultSet res = req.executeQuery();
+
+        if (res.next()) {
+            Conseiller cons = new Conseiller();
+            cons.setIdConseiller(res.getInt("idconseiller"));
+                    
+            c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
+       
+        }
+
+    
+    return c;
+    }
+*/
     
 }
