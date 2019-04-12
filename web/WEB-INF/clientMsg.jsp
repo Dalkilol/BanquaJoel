@@ -16,16 +16,26 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="menuClient.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     One of three columns
                 </div>
                 <div class="col-sm">
-                    One of three columns
+                    <br><br>
+                    <form action ="MessagerieServlet" method="POST">
+                  
+                       <div class="form-group text-center">
+                           <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
+                       </div>
+                       <div class="form-group text-center"
+                           <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
+                       </div>
+                    </form>
                 </div>
                 <div class="col-sm">
-                    One of three columns
+                    One of three columns ${client.nom}
                 </div>
             </div>
         </div>

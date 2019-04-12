@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package com.bank.servlet;
-
+import com.bank.bean.Client;
 import com.bank.bean.Personne;
+import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -63,22 +64,32 @@ public class HomeServlet extends HttpServlet {
         
         
         HttpSession session = request.getSession(true);
-        Personne p = (Personne) session.getAttribute("user");
-        request.setAttribute("user",p);
+Personne p = (Personne) session.getAttribute("user");
+request.setAttribute("user",p);
+
+if (p.isIsAdmin()) {
+    request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
+}
+if (p.isIsClient()) {
+    try {
+        Client c  = PersonneDao.getClient(p);
         
-        if (p.isIsAdmin()) {
-            request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
-        }
-        if (p.isIsClient()) {
-            request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
-        }
-        if (p.isIsConseiller()) {
-            request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
-        }
-        else{
-            PrintWriter out = response.getWriter();
-            out.println("n'importe quoi ");
-        }
+        
+        request.getSession(true).setAttribute("client", c);
+    } catch (Exception e) {
+        PrintWriter out = response.getWriter();
+        System.out.println(e.getMessage());
+        out.println("c'est a moi que tu parles ? " + e.getMessage());
+    }
+    request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
+}
+if (p.isIsConseiller()) {
+    request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
+}
+else{
+    PrintWriter out = response.getWriter();
+    out.println("n'importe quoi ");
+}
         
         
         
