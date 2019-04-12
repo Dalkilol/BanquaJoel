@@ -71,7 +71,8 @@ request.setAttribute("user",p);
 if (p.isIsAdmin()) {
     request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
 }
-if (!p.isIsAdmin() && !p.isIsConseiller()) {
+
+if (p.isIsClient()) {
     try {
         Client c  = PersonneDao.getClient(p);
         
@@ -85,9 +86,9 @@ if (!p.isIsAdmin() && !p.isIsConseiller()) {
     request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
 }
 
-/*
+
 if (p.isIsConseiller()) {
-    try {
+ /*   try {
         Conseiller con  = PersonneDao.getConseiller(p);
         
         
@@ -97,9 +98,10 @@ if (p.isIsConseiller()) {
         System.out.println(e.getMessage());
         out.println("c'est a moi que tu parles ? " + e.getMessage());
     }
+  */  
     request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
 }
-*/
+
 
 else{
     PrintWriter out = response.getWriter();
