@@ -147,7 +147,7 @@
                                                     <form action="AdminDel" method="POST">
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" required placeholder="ID du conseiller" name="id">
+                                                                <input type="number" class="form-control" required placeholder="ID du conseiller" name="id">
                                                             </div>
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" required placeholder="Nom du conseiller" name="nom">
@@ -157,19 +157,25 @@
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
                                                             <button type="submit" class="btn btn-primary">Valider</button>
                                                         </div>
+                                                        <div>
+                                                             ${msg}
+                                                        </div> 
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div> 
-                            </div>
-                        </div>
-                    </div>
+                                <div>
+                                    <br>${msgAdmin}
+                                </div> 
+                            </div> 
+                        </div>       
+                    </div>         
                 </div>
-
             </div>
             <div class="row bg-white p-5">
+
                 <div class="col">
                     <table class="table text-center">
                         <thead style="background-color: #bae0be">
