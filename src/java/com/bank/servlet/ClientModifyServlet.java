@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -76,13 +77,17 @@ public class ClientModifyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mdp = request.getParameter("mdp");
-        String mail = request.getParameter("mail");
+      
+        
+        
+ 
+        String mdp = request.getParameter("Newmdp");
+        String mail = request.getParameter("Newmail");
        
+        Client c = new Client();
+        
         try {
-            
-            //Client c = ${user};
-            Client c = null;
+    
             updateInfo(c, mail, mdp);
             out.println("Nom" + c.getNom());
             out.println("Prenom" + c.getPrenom());
