@@ -91,7 +91,8 @@ public class AdminAddServlet extends HttpServlet {
         try {
 
             AdminDao.insertConseiller(p);
-            response.sendRedirect("Home");
+            request.setAttribute("msgAdmin", "<p class='text-success text-center'><strong>Nouveau conseiller créé</strong></p>");
+            request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
             
       
         } catch (Exception e) {

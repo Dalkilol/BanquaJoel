@@ -53,21 +53,26 @@ public class AdminDao {
         ordre.execute();
     }
 
-    public static Personne desactiveConseiller(Personne p)
+    public static String desactiveConseiller(Personne p)
         throws SQLException {
         String sql = "UPDATE personne p SET p.isconseiller=0 WHERE p.idpersonne=? AND p.nom=?";
-
+        String msg = "va voir aill....";
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setInt(1, p.getIdpersonne());
         ordre.setString(2, p.getNom());
         
-        System.out.println(p.getIdpersonne());
-        System.out.println(p.getNom());
         
-        ordre.execute();
+        int row = ordre.executeUpdate();
         
-        return p;
+        if(row != 0){
+            msg = "Desactivé";
+        }
+        
+        
+        
+        
+        return msg;
         
     }
     

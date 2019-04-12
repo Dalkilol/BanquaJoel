@@ -63,6 +63,7 @@ public class AdminHomServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+                
         HttpSession session = request.getSession(true);
         Personne u = (Personne) session.getAttribute("membre");
         request.setAttribute("user", u);
@@ -79,7 +80,7 @@ public class AdminHomServlet extends HttpServlet {
             }
 
         } else {
-            request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp").forward(request, response);
         }
         
         
