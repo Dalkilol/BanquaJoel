@@ -6,6 +6,7 @@
 package com.bank.servlet;
 
 import com.bank.bean.Personne;
+import com.bank.dao.AdminDao;
 import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,7 +91,7 @@ public class AdminAddServlet extends HttpServlet {
 
         try {
 
-            PersonneDao.insertConseiller(p);
+            AdminDao.insertConseiller(p);
             response.sendRedirect("Home");
             
       
