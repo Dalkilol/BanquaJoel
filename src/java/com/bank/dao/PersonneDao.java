@@ -105,7 +105,7 @@ public class PersonneDao {
     return c;
     }
 
-/*    
+    
     public static Conseiller getConseiller(Personne p) throws SQLException {
         Conseiller con = null;
         String sql = "SELECT * \n"
@@ -120,17 +120,10 @@ public class PersonneDao {
 
         ResultSet res = req.executeQuery();
 
-        if (res.next()) {
-            Conseiller cons = new Conseiller();
-            cons.setIdConseiller(res.getInt("idconseiller"));
-                    
-            c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
-       
-        }
+        con.setIdConseiller(res.getInt("id"));
 
-    
-    return c;
+        return con;
     }
-*/
+
     
 }
