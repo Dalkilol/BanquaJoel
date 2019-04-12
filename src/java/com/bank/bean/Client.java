@@ -23,6 +23,11 @@ public class Client extends Personne{
         this.idClient = idClient;
         this.conseiller = conseiller;
     }
+    public Client(int idClient, Conseiller conseiller, int idpersonne, String nom, String prenom, String mail) {
+        super(idpersonne, nom, prenom, mail);
+        this.idClient = idClient;
+        this.conseiller = conseiller;
+    }
 
     public Client() {
     }

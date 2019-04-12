@@ -49,6 +49,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Mes opérations</a>
                     </li>
+                     <li class="nav-item">
+                        <form action="MessagerieServlet" method="GET">
+                            <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Messagerie</button>
+                    </li>
 
 
                     <li class="nav-item">
