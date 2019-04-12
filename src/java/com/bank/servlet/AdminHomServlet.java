@@ -9,18 +9,20 @@ import com.bank.bean.Personne;
 import com.bank.dao.AdminDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminDeleteServlet", urlPatterns = {"/AdminDel"})
-public class AdminDeleteServlet extends HttpServlet {
+@WebServlet(name = "AdminHomServlet", urlPatterns = {"/AdminHome"})
+public class AdminHomServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class AdminDeleteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDeleteServlet</title>");
+            out.println("<title>Servlet AdminHomServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminDeleteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminHomServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +62,27 @@ public class AdminDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        HttpSession session = request.getSession(true);
+        Personne u = (Personne) session.getAttribute("membre");
+        request.setAttribute("user", u);
+
+        if (u != null) {
+
+            try {
+                List<Personne> personnes = AdminDao.getAllConseiller();
+                request.setAttribute("allConseillers", personnes);
+               
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println(e.getMessage());
+            }
+
+        } else {
+            request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+        }
+        
+        
     }
 
     /**
@@ -74,22 +96,7 @@ public class AdminDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String iD = request.getParameter("id");
-        int id = Integer.parseInt(iD);
-        String nom = request.getParameter("nom");
-
-        Personne p = new Personne();
-        p.setIdpersonne(id);
-        p.setNom(nom);
-        try {
-            AdminDao.desactiveConseiller(p);
-            response.sendRedirect("Home");
-
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**

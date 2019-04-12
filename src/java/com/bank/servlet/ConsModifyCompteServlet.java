@@ -5,8 +5,8 @@
  */
 package com.bank.servlet;
 
-import com.bank.bean.Personne;
-import com.bank.dao.AdminDao;
+import com.bank.bean.Compte;
+import com.bank.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminDeleteServlet", urlPatterns = {"/AdminDel"})
-public class AdminDeleteServlet extends HttpServlet {
+@WebServlet(name = "ConsModifyCompteServlet", urlPatterns = {"/ConsModifyCompteServlet"})
+public class ConsModifyCompteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class AdminDeleteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDeleteServlet</title>");
+            out.println("<title>Servlet ConsModifyCompteServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminDeleteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsModifyCompteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,15 +75,20 @@ public class AdminDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String iD = request.getParameter("id");
-        int id = Integer.parseInt(iD);
-        String nom = request.getParameter("nom");
+        String idcompte = request.getParameter("idcompte");
+        String solde = request.getParameter("solde");
+        String decouvert = request.getParameter("decouvert");
+        String idclient = request.getParameter("idclient");
 
-        Personne p = new Personne();
-        p.setIdpersonne(id);
-        p.setNom(nom);
+        Compte c = new Compte();
+        c.setIdcompte(Integer.parseInt(idcompte));
+        c.setSolde(Double.parseDouble(solde));
+        c.setDecouvert(Double.parseDouble(decouvert));
+        c.setIdclient(Integer.parseInt(idclient));
+
         try {
-            AdminDao.desactiveConseiller(p);
+
+            CompteDao.updateCompte(c);
             response.sendRedirect("Home");
 
         } catch (Exception e) {
@@ -92,11 +97,6 @@ public class AdminDeleteServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

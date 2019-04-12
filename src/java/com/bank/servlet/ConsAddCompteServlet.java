@@ -96,7 +96,6 @@ public class ConsAddCompteServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
         }
-
     }
 
     @Override
