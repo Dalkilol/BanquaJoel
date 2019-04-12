@@ -75,7 +75,12 @@ public class HomeServlet extends HttpServlet {
             try {
                 List<Personne> personnes = AdminDao.getAllConseiller();
                 request.setAttribute("allConseillers", personnes);
+                
+                List<Personne> personness = AdminDao.getAllConseillerDesact();
+                request.setAttribute("allConseillersDesact", personness);
+                
                 request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
+
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
@@ -96,17 +101,16 @@ public class HomeServlet extends HttpServlet {
         }
 
         if (p.isIsConseiller()) {
-            /*   try {
-        Conseiller con  = PersonneDao.getConseiller(p);
-        
-        
-        request.getSession(true).setAttribute("conseiller", con);
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        System.out.println(e.getMessage());
-        out.println("c'est a moi que tu parles ? " + e.getMessage());
-    }
-             */
+            try {
+                Conseiller con = PersonneDao.getConseiller(p);
+
+                request.getSession(true).setAttribute("conseiller", con);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                System.out.println(e.getMessage());
+                out.println("c'est a moi que tu parles ? " + e.getMessage());
+            }
+
             request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
         } else {
             PrintWriter out = response.getWriter();
