@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 11 Avril 2019 à 17:11
+-- Généré le :  Ven 12 Avril 2019 à 09:59
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `banquajoel`
 --
-DROP schema if exists `banquajoel` ;
+
+DROP schema IF EXISTS `banquajoel`;
 CREATE DATABASE IF NOT EXISTS `banquajoel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `banquajoel`;
 
@@ -37,13 +38,6 @@ CREATE TABLE IF NOT EXISTS `client` (
   KEY `fk_client_conseiller1_idx` (`idconseiller`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `client`
---
-
-INSERT INTO `client` (`idclient`, `idconseiller`) VALUES
-(3, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -57,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `idclient` int(11) NOT NULL,
   PRIMARY KEY (`idcompte`),
   KEY `fk_compte_client1_idx` (`idclient`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -126,16 +120,32 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `isconseiller` tinyint(4) DEFAULT NULL,
   `isclient` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idpersonne`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `personne`
 --
 
 INSERT INTO `personne` (`idpersonne`, `prenom`, `nom`, `mail`, `mdp`, `isadmin`, `isconseiller`, `isclient`) VALUES
-(1, 'testadmin', 'testadmin', 'testadmin', 'testadmin', 1, NULL, NULL),
-(2, 'testconseiller', 'testconseiller', 'testconseiller', 'testconseiller', NULL, 1, NULL),
-(3, 'testclient', 'testclient', 'testclient', 'testclient', NULL, NULL, 1);
+(1, 'testadmin', 'testadmin', 'testadmin@test.com', 'testadmin', 1, NULL, NULL),
+(2, 'testconseiller', 'testconseiller', 'testconseiller@test.com', 'testconseiller', NULL, 1, NULL),
+(3, 'testclient', 'testclient', 'testclient@test.com', 'testclient', NULL, NULL, 1);
+
+--
+-- Déclencheurs `personne`
+--
+DROP TRIGGER IF EXISTS `after_add_personne`;
+DELIMITER //
+CREATE TRIGGER `after_add_personne` AFTER INSERT ON `personne`
+ FOR EACH ROW BEGIN
+    IF NEW.isconseiller IS NOT NULL
+    OR NEW.isconseiller = 'true'
+      THEN
+        INSERT INTO conseiller (idconseiller) VALUES (NEW.idpersonne);
+    END IF;
+END
+//
+DELIMITER ;
 
 --
 -- Contraintes pour les tables exportées
@@ -145,8 +155,8 @@ INSERT INTO `personne` (`idpersonne`, `prenom`, `nom`, `mail`, `mdp`, `isadmin`,
 -- Contraintes pour la table `client`
 --
 ALTER TABLE `client`
-  ADD CONSTRAINT `fk_client_personne1` FOREIGN KEY (`idclient`) REFERENCES `personne` (`idpersonne`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_client_conseiller1` FOREIGN KEY (`idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_client_conseiller1` FOREIGN KEY (`idconseiller`) REFERENCES `conseiller` (`idconseiller`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_client_personne1` FOREIGN KEY (`idclient`) REFERENCES `personne` (`idpersonne`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `compte`
