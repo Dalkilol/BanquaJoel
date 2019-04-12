@@ -12,6 +12,8 @@ import com.bank.bean.Messagerie;
 import com.bank.dao.MsgDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +45,7 @@ public class MessagerieServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MessagerieServlet</title>");            
+            out.println("<title>Servlet MessagerieServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MessagerieServlet at " + request.getContextPath() + "</h1>");
@@ -64,36 +66,36 @@ public class MessagerieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
         HttpSession session = request.getSession(true);
         Personne p = (Personne) session.getAttribute("user");
-        request.setAttribute("user",p);
-        
- 
+        request.setAttribute("user", p);
+
         if (p.isIsClient()) {
             Client client = (Client) session.getAttribute("client");
-           
-            /*try {
-                System.out.println("tes jojo" + client.getNom());
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println("erre try syso" + e.getMessage());
-            }*/
-           
             request.setAttribute("client", client);
             
-            request.getRequestDispatcher("/WEB-INF/clientMsg.jsp").forward(request, response);
-            
+            try {
+                List<Messagerie> messages = MsgDao.getMsgClient(client);
+                request.setAttribute("messages", messages);
+                request.getRequestDispatcher("/WEB-INF/clientMsg.jsp").forward(request, response);
+
+            } catch (Exception e) {
+                request.setAttribute("msg", "Ceci n'est pas un message d'erreur");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+
         }
         if (p.isIsConseiller()) {
             Conseiller co = (Conseiller) session.getAttribute("user");
             request.setAttribute("conseiller", co);
             request.getRequestDispatcher("/WEB-INF/consMsgConseiller.jsp").forward(request, response);
-        }
-        else{
+        } else {
             PrintWriter out = response.getWriter();
             out.println("n'importe quoi ");
         }
-        
+
     }
 
     /**
@@ -107,31 +109,31 @@ public class MessagerieServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         System.out.println("qzerohqzeruifhqzeruiqeuirqeuirqeriqeiruqeirughqzeiruqeigh");
         HttpSession session = request.getSession(true);
         Client cl = (Client) session.getAttribute("client");
-        Conseiller conseiller = new Conseiller(); 
-        conseiller = cl.getConseiller(); 
-        
+        Conseiller conseiller = new Conseiller();
+        conseiller = cl.getConseiller();
+
         String contenu = request.getParameter("msgClient");
         int idClient = cl.getIdClient();
-        
+
         int idConseiller = conseiller.getIdConseiller();
 
         Messagerie m = new Messagerie();
         m.setContenu(contenu);
         m.setIdclient(idClient);
         m.setIdconseiller(idConseiller);
-       
 
         try {
 
             MsgDao.insertMsgClient(m, cl);
             response.sendRedirect("MessagerieServlet");
-            
-      
+
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
-        }}}
+        }
+    }
+}

@@ -4,6 +4,8 @@
     Author     : ESIC
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.bank.dao.MsgDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,26 +22,48 @@
         <div class="container">
             <div class="row bg-white">
                 <div class="col-sm">
-                    One of three columns
+                    <h6>Messages précédents</h6>
                 </div>
                 <div class="col-sm">
                     <br><br>
-                    <h6>Messages précédents</h6>
-                    
+
+
                     <form action ="MessagerieServlet" method="POST">
-                  
-                       <div class="form-group text-center">
-                           <div class ="card">
-                           <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
-                           </div>
-                       </div>
-                       <div class="form-group text-center">
-                           <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
-                       </div>
+
+                        <div class="form-group text-center">
+                            <div class ="card">
+                                <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
+                        </div>
                     </form>
                 </div>
                 <div class="col-sm">
-                    One of three columns ${client.nom}
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+
+                                <th scope="col">Messages envoyés</th>
+                                
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <c:forEach items ="${messages}" var="m">
+                            <tr>
+                                
+                                <td>${m.contenu}</td>
+                                
+                            </tr>  
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+
+
+
                 </div>
             </div>
         </div>
