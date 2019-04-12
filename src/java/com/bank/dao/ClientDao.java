@@ -77,7 +77,7 @@ public class ClientDao {
         
         Personne p = getInfo(c);
         
-        String sql = "UPDATE personne SET mail=? mdp=? WHERE personne.idpersonne=?";
+        String sql = "UPDATE personne SET mail=?, mdp=? WHERE personne.idpersonne=?";
         
         Connection connexion = ConnectConf.getConnection();
        

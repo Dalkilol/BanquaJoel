@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package com.bank.servlet;
+
 import com.bank.bean.Client;
 import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
+import com.bank.dao.AdminDao;
 import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +44,7 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminHomeServlet</title>");            
+            out.println("<title>Servlet AdminHomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminHomeServlet at " + request.getContextPath() + "</h1>");
@@ -62,32 +65,38 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         HttpSession session = request.getSession(true);
-Personne p = (Personne) session.getAttribute("user");
-request.setAttribute("user",p);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user", p);
 
-if (p.isIsAdmin()) {
-    request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
-}
-if (p.isIsClient() ) {
-    try {
-        Client c  = PersonneDao.getClient(p);
-        
-        
-        request.getSession(true).setAttribute("client", c);
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        System.out.println(e.getMessage());
-        out.println("c'est a moi que tu parles ? " + e.getMessage());
-    }
-    request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
-}
+        if (p.isIsAdmin()) {
 
+            try {
+                List<Personne> personnes = AdminDao.getAllConseiller();
+                request.setAttribute("allConseillers", personnes);
+                request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println(e.getMessage());
+            }
 
-if (p.isIsConseiller()) {
- /*   try {
+        }
+        if (p.isIsClient()) {
+            try {
+                Client c = PersonneDao.getClient(p);
+
+                request.getSession(true).setAttribute("client", c);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                System.out.println(e.getMessage());
+                out.println("c'est a moi que tu parles ? " + e.getMessage());
+            }
+            request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
+        }
+
+        if (p.isIsConseiller()) {
+            /*   try {
         Conseiller con  = PersonneDao.getConseiller(p);
         
         
@@ -97,18 +106,13 @@ if (p.isIsConseiller()) {
         System.out.println(e.getMessage());
         out.println("c'est a moi que tu parles ? " + e.getMessage());
     }
-  */  
-    request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
-}
+             */
+            request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("n'importe quoi ");
+        }
 
-
-else{
-    PrintWriter out = response.getWriter();
-    out.println("n'importe quoi ");
-}
-        
-        
-        
     }
 
     /**
