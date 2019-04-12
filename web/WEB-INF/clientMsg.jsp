@@ -15,19 +15,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body style="#eff9f1">
         <%@include file="menuClient.jsp" %>
         <div class="container">
-            <div class="row">
+            <div class="row bg-white">
                 <div class="col-sm">
                     One of three columns
                 </div>
                 <div class="col-sm">
                     <br><br>
+                    <h6>Messages précédents</h6>
+                    
                     <form action ="MessagerieServlet" method="POST">
                   
                        <div class="form-group text-center">
+                           <div class ="card">
                            <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
+                           </div>
                        </div>
                        <div class="form-group text-center"
                            <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
