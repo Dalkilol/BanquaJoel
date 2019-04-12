@@ -10,7 +10,10 @@ import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,28 +44,64 @@ public class ClientDao {
 
 
     
-    public static void getInfo(String log, String pass) throws SQLException {
+    public static Personne getInfo(Client c) throws SQLException {
 
-        String sql = "SELECT * FROM compte, client WHERE compte.idclient = client.idclient AND mail=log AND mdp=pass";
+        Personne p = null;
+        
+        String sql1 = "SELECT * FROM personne WHERE mail=? AND mdp=?";
         
         Connection connexion = ConnectConf.getConnection();
         
-        PreparedStatement req = connexion.prepareStatement(sql);
+        PreparedStatement req = connexion.prepareStatement(sql1);
         
-        req.execute();
+        req.setString(1, c.getMail());
+        req.setString(2, c.getMdp());
+        
+        ResultSet res = req.executeQuery();
+        
+        if (res.next()){
+            p = new Personne();
+            p.setNom(res.getString("nom"));
+            p.setPrenom(res.getString("prenom"));
+            p.setMail(res.getString("mail"));
+            p.setIsAdmin(res.getBoolean("isadmin"));
+            p.setIsConseiller(res.getBoolean("isconseiller"));
+            p.setIsClient(res.getBoolean("isclient"));
+                     
+        }
+        
+        return p;
+    }
+    
+    public static void updateInfo(Client c, String mdp) throws SQLException {
+        
+        Personne p = getInfo(c);
+        
+        String sql = "UPDATE personne SET mdp=? WHERE personne.idpersonne=?";
+        
+        Connection connexion = ConnectConf.getConnection();
+       
+        PreparedStatement ordre = connexion.prepareStatement(sql);
+         
+         ordre.setString(1, mdp);
+         ordre.setInt(2, p.getIdpersonne());
+         
+         ordre.execute();
         
     }
     
     public static void getHistorique(String log, String pass) throws SQLException {
-        Personne p = null;
+        
+        List<String> dates = new ArrayList<>();
 
-        String sql = "SELECT historique.dateOpe, historique.montantOpe, historique.motif, historique.idcompte FROM historique, client, compte WHERE historique.compte_idcompte = compte.idcompte AND compte.client_idclient = client.idclient AND mail=log AND mdp=pass";
+        String sql = "SELECT historique.dateOpe, historique.montantOpe, historique.motif, historique.idcompte FROM historique, personne, compte WHERE historique.compte_idcompte = compte.idcompte AND compte.client_idclient = personne.idpersonne AND mail=log AND mdp=pass";
         
         Connection connexion = ConnectConf.getConnection();
         
         PreparedStatement req = connexion.prepareStatement(sql);
         
-        req.execute();
+        ResultSet rs = req.executeQuery();
+        
         
     }
 }
