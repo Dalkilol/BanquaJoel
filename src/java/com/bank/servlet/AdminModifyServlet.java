@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "AdminModifyServlet", urlPatterns = {"/AdminModify"})
+@WebServlet(name = "AdminModifyServlet", urlPatterns = {"/AdminModif"})
 public class AdminModifyServlet extends HttpServlet {
 
     /**

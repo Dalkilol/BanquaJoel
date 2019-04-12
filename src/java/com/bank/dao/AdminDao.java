@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -50,27 +53,44 @@ public class AdminDao {
         ordre.execute();
     }
 
-    public static Personne selectConseiller(Personne p)
+    public static Personne desactiveConseiller(Personne p)
         throws SQLException {
-        String sql = "SELECT * FROM conseiller WHERE conseiller.idconseiller=?";
+        String sql = "UPDATE personne p SET p.isconseiller=0 WHERE p.idpersonne=? AND p.nom=?";
 
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setInt(1, p.getIdpersonne());
+        ordre.setString(2, p.getNom());
+        
+        System.out.println(p.getIdpersonne());
+        System.out.println(p.getNom());
+        
         ordre.execute();
         
-        ResultSet rs = ordre.executeQuery();
-         if(rs.next()){
-             p = new Personne();
-             p.setIdpersonne(rs.getInt("idpersonne"));
-             p.setNom(rs.getString("nom"));
-             p.setPrenom(rs.getString("prenom"));
-             p.setMail(rs.getString("mail"));
-             p.setMdp(rs.getString("mdp"));
-
-        }
         return p;
         
+    }
+    
+    public static List<Personne> getAllConseiller()
+    throws SQLException{
+        List<Personne> personnes = new ArrayList<>();
+        
+        String sql = "SELECT * FROM personne p WHERE p.isconseiller=1";
+        
+        Connection connexion = ConnectConf.getConnection();
+        Statement req = connexion.createStatement();
+        ResultSet rs = req.executeQuery(sql);
+        while(rs.next()){
+            Personne p = new Personne();
+            p.setIdpersonne(rs.getInt("idpersonne"));
+            p.setNom(rs.getString("nom"));
+            p.setPrenom(rs.getString("prenom"));
+            p.setMail(rs.getString("mail"));
+            p.setMdp(rs.getString("mdp"));
+            
+            personnes.add(p);
+        }
+        return personnes;
     }
     
 }
