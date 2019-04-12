@@ -41,7 +41,9 @@
                         <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Mon profil</a>
+                        <form action="ModifClient" method="GET">
+                            <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Mon profil</button>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">Mon compte</a>
