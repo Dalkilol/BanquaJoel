@@ -31,32 +31,33 @@
     <body>
        
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #568c5d">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="">
                 <img src="https://image.flaticon.com/icons/svg/126/126179.svg" width="30" height="40">
                 Client
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mon profil</a>
+                        <a class="nav-link" href="">Mon profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mon compte</a>
+                        <a class="nav-link" href="">Mon compte</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mes opérations</a>
+                        <a class="nav-link" href="">Mes opérations</a>
                     </li>
                      <li class="nav-item">
                         <form action="MessagerieServlet" method="GET">
                             <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Messagerie</button>
+                        </form>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Se déconnecter</a>
+                        <a class="nav-link" href="">Se déconnecter</a>
                     </li>
                 </ul>
             </div>

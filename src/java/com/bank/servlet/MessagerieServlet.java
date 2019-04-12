@@ -82,6 +82,7 @@ public class MessagerieServlet extends HttpServlet {
             request.setAttribute("client", client);
             
             request.getRequestDispatcher("/WEB-INF/clientMsg.jsp").forward(request, response);
+            
         }
         if (p.isIsConseiller()) {
             Conseiller co = (Conseiller) session.getAttribute("user");
@@ -106,6 +107,9 @@ public class MessagerieServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("qzerohqzeruifhqzeruiqeuirqeuirqeriqeiruqeirughqzeiruqeigh");
+        request.setAttribute("testest", "ceci est un test");
         HttpSession session = request.getSession(true);
         Client cl = (Client) session.getAttribute("client");
         Conseiller conseiller = new Conseiller(); 
