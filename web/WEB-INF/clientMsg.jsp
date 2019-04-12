@@ -16,13 +16,21 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="menuClient.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    One of three columns
+                    <form action ="/MessagerieServlet" method="POST">
+                        
+                       <!-- <span class="bmd-form-group"><textarea rows="3" name="msgClient">zeohzeuofzeuhfzehfh</textarea></span>-->
+                       <div class="form-group">
+                           <input type="text" class="form-control" id="inputPass" name="msgClient" placeholder="szjsghuorh">
+                       </div>
+                           <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Envoyer</button>
+                    </form>
                 </div>
                 <div class="col-sm">
-                    One of three columns
+                    One of three columns ${client.nom}
                 </div>
                 <div class="col-sm">
                     One of three columns

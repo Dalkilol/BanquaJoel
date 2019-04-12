@@ -8,11 +8,11 @@ public class Messagerie {
     private int idconseiller;
     private int idclient;
     
-    Messagerie(){
+    public Messagerie(){
     
     }
     
-    Messagerie(int idmessagerie, String contenu, int idconseiller, int idclient){
+    public Messagerie(int idmessagerie, String contenu, int idconseiller, int idclient){
         
     this.idmessagerie=idmessagerie;
     this.contenu=contenu;

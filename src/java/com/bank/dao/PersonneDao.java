@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.bank.dao;
-
+import com.bank.bean.Conseiller; 
+import com.bank.bean.Client;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,5 +79,31 @@ public class PersonneDao {
         return p;
     }
         
+    public static Client getClient(Personne p) throws SQLException {
+    Client c = null;
+    String sql = "SELECT * \n"
+            + "FROM client cl INNER JOIN personne pe\n"
+            + "on cl.idclient = pe.idpersonne\n"
+            + "WHERE pe.idpersonne = ?;";
+
+    Connection connexion = ConnectConf.getConnection();
+
+    PreparedStatement req = connexion.prepareStatement(sql);
+    req.setInt(1, p.getIdpersonne());
+
+    ResultSet res = req.executeQuery();
+
+    if (res.next()) {
+        Conseiller cons = new Conseiller();
+        cons.setIdConseiller(res.getInt("idconseiller"));
+                    
+        c = new Client(res.getInt("idclient"), cons,res.getInt("idpersonne") ,res.getString("nom"), res.getString("prenom"), res.getString("mail"));
+       
+    }
+
+    
+    return c;
+}
+
     
 }

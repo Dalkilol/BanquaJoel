@@ -22,22 +22,24 @@
                     One of three columns
                 </div>
                 <div class="col-sm">
-                                        
-                    <form action="AddClient" methode="POST">                        
-                        <div class="form-group" >
-                            <input class="front-control" type="text" placeholder="Nom" name="nom">                         
-                        </div>
-                        <div class="form-group" >
-                            <input class="front-control" type="text" placeholder="Préom" name="prenom">                         
-                        </div>
-                        <div class="form-group" >
-                            <input class="front-control" type="text" placeholder="e-mail" name="mail">                         
-                        </div>   
-                        <div class="form-group">
-                            <input class="front-control" type="password" placeholder="mot de passe" name="mdp">
-                        </div>
-                        <div style = "align-items: center">                    
-                            <button type="submit" class="btn btn-danger"> Envoyer </button>
+                    <br><br><br><br><br><br><br><br><br><br>                    
+                    <form action="AddClient" methode="POST"> 
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-header" style="text-align: center">
+                                La personne à ajouter
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group" style="text-align: center" >
+                                    <input class="front-control" type="text" placeholder="Nom" name="nom">                         
+                                </div>
+                                <div class="form-group" style="text-align: center">
+                                    <input class="front-control" type="text" placeholder="Préom" name="prenom">                         
+                                </div>
+                                <div style = "align-items: center">                    
+                                    <button type="submit" class="btn btn-danger"> Valider </button>
+                                </div>
+                            </div>
+                            
                         </div>
                                                                        
                     </form>

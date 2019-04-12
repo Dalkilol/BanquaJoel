@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.bank.bean.Client;
+import com.bank.bean.Personne;
 import com.bank.dao.ClientDao;
+import com.bank.dao.PersonneDao;
 
 /**
  *
@@ -81,9 +83,25 @@ public class ConsAddClientServlet extends HttpServlet {
         
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
-        String mail = request.getParameter("mail");
-        String mdp = request.getParameter("mdp");
-        
+
+        Personne p = new Personne();
+//        p.setNom(nom);
+//        p.setPrenom(prenom);
+
+        try {
+
+            p = PersonneDao.RecherchePersonne1(nom, prenom);
+            if (p != null){
+//              com.bank.dao.ClientDao.AddClient(p, c);
+            }
+            else{
+                
+            }
+            
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
                
         
     }

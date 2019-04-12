@@ -29,6 +29,14 @@ public class Personne  {
 
     }
 
+    public Personne(int idpersonne, String nom, String prenom, String mail) {
+        this.idpersonne = idpersonne;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+    }
+
+    
     public boolean isIsAdmin() {
         return isAdmin;
     }
