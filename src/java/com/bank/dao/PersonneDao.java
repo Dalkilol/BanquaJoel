@@ -120,8 +120,9 @@ public class PersonneDao {
 
         ResultSet res = req.executeQuery();
 
-        con.setIdConseiller(res.getInt("idconseiller"));
-
+        if (res.next()) {
+           con = new Conseiller(res.getInt("idconseiller"), res.getInt("idpersonne"), res.getString("nom"), res.getString("prenom"), res.getString("mail"), res.getString("mdp"));
+        }
         return con;
     }
 

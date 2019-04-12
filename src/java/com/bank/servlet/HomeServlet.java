@@ -96,17 +96,17 @@ public class HomeServlet extends HttpServlet {
         }
 
         if (p.isIsConseiller()) {
-            /*   try {
+               try {
         Conseiller con  = PersonneDao.getConseiller(p);
         
         
         request.getSession(true).setAttribute("conseiller", con);
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        System.out.println(e.getMessage());
-        out.println("c'est a moi que tu parles ? " + e.getMessage());
-    }
-             */
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            System.out.println(e.getMessage());
+            out.println("c'est a moi que tu parles ? " + e.getMessage());
+        }
+             
             request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
         } else {
             PrintWriter out = response.getWriter();
