@@ -62,7 +62,6 @@ public class AdminAddServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/WEB-INF/adminAddConseiller.jsp").forward(request, response);
         
     }
 
