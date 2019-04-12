@@ -21,50 +21,72 @@
         <%@include file="menuClient.jsp" %>
         <div class="container">
             <div class="row bg-white">
+
                 <div class="col-sm">
-                    <h6>Messages précédents</h6>
+                    <br>
+                    <p>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#MsgSent" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Boîte de réception
+                        </a>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#MsgSent" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Messages Envoyés
+                        </a>
+                    </p>
+                    <div class="collapse" id="MsgSent">
+                        <div class="card card-body">
+                            <table class="table">
+
+
+                                <tbody>
+                                    <c:forEach items ="${messages}" var="m">
+                                        <tr>
+
+                                            <td>${m.contenu}</td>
+
+                                        </tr>  
+                                    </c:forEach>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+
                 </div>
-                <div class="col-sm">
-                    <br><br>
+               
+
+            </div>
+            <div class="row bg-white justify-content-end">
+
+                <div class="col-8">
+                    
+                        <h3>Envoyez un message à votre conseiller en saisissant du texte ci-dessous.</h3>
+                   
+
 
 
                     <form action ="MessagerieServlet" method="POST">
 
-                        <div class="form-group text-center">
-                            <div class ="card">
-                                <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
+                        <div class="form-group text-right">
+                            <div class="card  box-shadow" style="width: 51rem;height: 25rem;">
+
+
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="24" id="comment" name="msgClient"></textarea>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div class="form-group text-right mr-3">
                             <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-sm">
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
 
-                                <th scope="col">Messages envoyés</th>
-                                
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                        <c:forEach items ="${messages}" var="m">
-                            <tr>
-                                
-                                <td>${m.contenu}</td>
-                                
-                            </tr>  
-                        </c:forEach>
-
-                        </tbody>
-                    </table>
-
-
-
-                </div>
             </div>
         </div>
     </body>
