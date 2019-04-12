@@ -5,6 +5,8 @@
  */
 package com.bank.servlet;
 
+import com.bank.bean.Compte;
+import com.bank.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,7 +39,7 @@ public class ConsAddCompteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsAddCompteServlet</title>");            
+            out.println("<title>Servlet ConsAddCompteServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ConsAddCompteServlet at " + request.getContextPath() + "</h1>");
@@ -58,7 +60,8 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        //request.getRequestDispatcher("/WEB-INF/conseillerAddCompte.jsp").forward(request, response);    //à rediriger vers la page jsp nécessaire
     }
 
     /**
@@ -72,14 +75,30 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String idcompte = request.getParameter("idcompte");
+        String solde = request.getParameter("solde");
+        String decouvert = request.getParameter("decouvert");
+        String idclient = request.getParameter("idclient");
+
+        Compte c = new Compte();
+        c.setIdcompte(Integer.parseInt(idcompte));
+        c.setSolde(Double.parseDouble(solde));
+        c.setDecouvert(Double.parseDouble(decouvert));
+        c.setIdclient(Integer.parseInt(idclient));
+
+        try {
+
+            CompteDao.insertCompte(c);
+            response.sendRedirect("Home");
+
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
