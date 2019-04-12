@@ -73,7 +73,7 @@ public class PersonneDao {
             p.setMail(res.getString("mail"));
             p.setIsAdmin(res.getBoolean("isadmin"));
             p.setIsConseiller(res.getBoolean("isconseiller"));
-            p.setIsClient(res.getBoolean("isclient"));            
+            p.setIsClient(res.getBoolean("isclient"));          
         }
         
         return p;

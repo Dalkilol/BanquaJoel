@@ -71,8 +71,7 @@ request.setAttribute("user",p);
 if (p.isIsAdmin()) {
     request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
 }
-
-if (p.isIsClient()) {
+if (p.isIsClient() ) {
     try {
         Client c  = PersonneDao.getClient(p);
         

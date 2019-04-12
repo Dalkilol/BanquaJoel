@@ -19,8 +19,8 @@ import java.util.List;
  * @author ESIC
  */
 public class AdminDao {
-    
-        public static void insertConseiller(Personne p)
+
+    public static void insertConseiller(Personne p)
             throws SQLException {
         String sql = "INSERT INTO personne (nom, prenom, mail, mdp, isconseiller) VALUES (?, ?, ?, ?, 1)";
 
@@ -54,48 +54,44 @@ public class AdminDao {
     }
 
     public static String desactiveConseiller(Personne p)
-        throws SQLException {
+            throws SQLException {
         String sql = "UPDATE personne p SET p.isconseiller=0 WHERE p.idpersonne=? AND p.nom=?";
-        String msg = "va voir aill....";
+        String msg = "<p class='text-warning text-center'><strong>Conseiller inexistant</strong></p>";
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setInt(1, p.getIdpersonne());
         ordre.setString(2, p.getNom());
-        
-        
+
         int row = ordre.executeUpdate();
-        
-        if(row != 0){
-            msg = "Desactivé";
+
+        if (row != 0) {
+            msg = "<p class='text-warning text-center'><strong>Conseiller désactivé</strong></p>";
         }
-        
-        
-        
-        
+
         return msg;
-        
+
     }
-    
+
     public static List<Personne> getAllConseiller()
-    throws SQLException{
+            throws SQLException {
         List<Personne> personnes = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM personne p WHERE p.isconseiller=1";
-        
+
         Connection connexion = ConnectConf.getConnection();
         Statement req = connexion.createStatement();
         ResultSet rs = req.executeQuery(sql);
-        while(rs.next()){
+        while (rs.next()) {
             Personne p = new Personne();
             p.setIdpersonne(rs.getInt("idpersonne"));
             p.setNom(rs.getString("nom"));
             p.setPrenom(rs.getString("prenom"));
             p.setMail(rs.getString("mail"));
             p.setMdp(rs.getString("mdp"));
-            
+
             personnes.add(p);
         }
         return personnes;
     }
-    
+
 }
