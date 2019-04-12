@@ -44,7 +44,7 @@ public class ClientDao {
 
 
     
-    public static Personne getInfo(Client c) throws SQLException {
+    public static Personne getInfo(Personne c) throws SQLException {
 
         Personne p = null;
         
