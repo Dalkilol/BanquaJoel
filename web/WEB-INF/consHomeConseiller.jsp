@@ -54,7 +54,7 @@
                         </div>
                         <div class ="card-body">
                             <p class="actualite">
-                                la mise à jour ou la supression de client pour le conseiller ${user.prenom}</p>
+                                la mise à jour ou la supression de client pour le conseiller ${conseiller.prenom}</p>
                             <br>
                             <div class ="container">
                                 <div class="row justify-content-arround">
