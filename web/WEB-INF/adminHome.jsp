@@ -73,8 +73,9 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
+                                                    <form action="AdminAdd" method="POST">
                                                     <div class="modal-body">
-                                                        <form action="AdminAdd" method="POST">
+                                                        
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" required placeholder="Nom" name="nom">
                                                             </div>
@@ -87,12 +88,14 @@
                                                             <div class="form-group">
                                                                 <input type="password" class="form-control" required placeholder="Mot de passe" name="mdp">
                                                             </div>
-                                                        </form> 
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
                                                         <button type="submit" class="btn btn-primary">Valider</button>
                                                     </div>
+                                                        
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
