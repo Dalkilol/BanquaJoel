@@ -94,11 +94,19 @@ public class ClientModifyServlet extends HttpServlet {
         String mdp = request.getParameter("Newmdp");
         String mail = request.getParameter("Newmail");
        
-        Client c = (Client) session.getAttribute("client");
+        Personne pe = new Personne();
+        pe.setMail(mail);
+        pe.setMdp(mdp);
+        pe.setNom(p.getNom());
+        pe.setPrenom(p.getPrenom());
+        pe.setIdpersonne(p.getIdpersonne());
         
         try {
     
-            updateInfo(c, mail, mdp);
+            updateInfo(pe);
+            
+            request.getSession().setAttribute("user", pe);
+           response.sendRedirect("ModifClient");
             /*
             out.println("Nom" + c.getNom());
             out.println("Prenom" + c.getPrenom());
@@ -109,8 +117,9 @@ public class ClientModifyServlet extends HttpServlet {
         
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
+            out.println("ex" + e.getMessage());
         }
+         
     }
 
     /**

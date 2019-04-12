@@ -36,31 +36,14 @@ public class AdminDao {
         ordre.execute();
     }
 
-    public static void updateConseiller(Personne p)
-            throws SQLException {
-        String sql = "UPDATE personne SET nom=?, prenom=?, mail=?, mdp=? WHERE personne.idpersonne=?";
-
-        Connection connexion = ConnectConf.getConnection();
-
-        PreparedStatement ordre = connexion.prepareStatement(sql);
-
-        ordre.setString(1, p.getNom());
-        ordre.setString(2, p.getPrenom());
-        ordre.setString(3, p.getMail());
-        ordre.setString(4, p.getMdp());
-        ordre.setInt(5, p.getIdpersonne());
-
-        ordre.execute();
-    }
 
     public static String desactiveConseiller(Personne p)
             throws SQLException {
-        String sql = "UPDATE personne p SET p.isconseiller=0 WHERE p.idpersonne=? AND p.nom=?";
+        String sql = "UPDATE personne p SET p.isconseiller=2 WHERE p.idpersonne=?";
         String msg = "<p class='text-warning text-center'><strong>Conseiller inexistant</strong></p>";
         Connection connexion = ConnectConf.getConnection();
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setInt(1, p.getIdpersonne());
-        ordre.setString(2, p.getNom());
 
         int row = ordre.executeUpdate();
 
@@ -77,6 +60,28 @@ public class AdminDao {
         List<Personne> personnes = new ArrayList<>();
 
         String sql = "SELECT * FROM personne p WHERE p.isconseiller=1";
+
+        Connection connexion = ConnectConf.getConnection();
+        Statement req = connexion.createStatement();
+        ResultSet rs = req.executeQuery(sql);
+        while (rs.next()) {
+            Personne p = new Personne();
+            p.setIdpersonne(rs.getInt("idpersonne"));
+            p.setNom(rs.getString("nom"));
+            p.setPrenom(rs.getString("prenom"));
+            p.setMail(rs.getString("mail"));
+            p.setMdp(rs.getString("mdp"));
+
+            personnes.add(p);
+        }
+        return personnes;
+    }
+    
+    public static List<Personne> getAllConseillerDesact()
+            throws SQLException {
+        List<Personne> personnes = new ArrayList<>();
+
+        String sql = "SELECT * FROM personne p WHERE p.isconseiller=2";
 
         Connection connexion = ConnectConf.getConnection();
         Statement req = connexion.createStatement();
