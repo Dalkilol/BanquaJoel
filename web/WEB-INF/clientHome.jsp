@@ -42,7 +42,7 @@
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                                 nostrud exercitation ullamco</p>
                         </div>
-                        <a href="#" class="btn btn-primary">Lien</a>
+                        <a href="" class="btn btn-primary">Lien</a>
                     </div>
                 </div>
             </div>
