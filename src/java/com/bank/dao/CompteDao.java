@@ -35,7 +35,7 @@ public class CompteDao {
         
         
 }
-        public static void updateCcompte(Compte c)
+        public static void updateCompte(Compte c)
             throws SQLException {
         String sql = "UPDATE compte SET solde=?, decouvert=?, idclient=? WHERE compte.idcompte=?";
 

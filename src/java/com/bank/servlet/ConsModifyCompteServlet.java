@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "ConsAddCompteServlet", urlPatterns = {"/AddCompte"})
-public class ConsAddCompteServlet extends HttpServlet {
+@WebServlet(name = "ConsModifyCompteServlet", urlPatterns = {"/ConsModifyCompteServlet"})
+public class ConsModifyCompteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class ConsAddCompteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsAddCompteServlet</title>");
+            out.println("<title>Servlet ConsModifyCompteServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConsAddCompteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsModifyCompteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,8 +60,7 @@ public class ConsAddCompteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //request.getRequestDispatcher("/WEB-INF/conseillerAddCompte.jsp").forward(request, response);    //à rediriger vers la page jsp nécessaire
+        processRequest(request, response);
     }
 
     /**
@@ -89,7 +88,7 @@ public class ConsAddCompteServlet extends HttpServlet {
 
         try {
 
-            CompteDao.insertCompte(c);
+            CompteDao.updateCompte(c);
             response.sendRedirect("Home");
 
         } catch (Exception e) {
