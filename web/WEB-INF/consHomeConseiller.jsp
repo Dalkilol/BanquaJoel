@@ -27,18 +27,84 @@
         crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    One of three columns
+                <div class ="container">
+
+            <br>
+
+
+
+            <br>
+            <br>
+
+
+            <div class="row bg-white p-5">
+
+
+
+                <div class="col mt-5 ml-5">
+                    <h1 display-4 style="font-style: italic;">Bienvenue, ${user.prenom}.</h1><br>
+                    <p>BanquaJoel ne serait rien sans vous.
+
                 </div>
-                <div class="col-sm">
-                    One of three columns
+                <div class="col-sm-7">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #bae0be">
+                            <h3 style="color: black; text-align: center;">Gestion des conseillers</h3>
+
+                        </div>
+                        <div class ="card-body">
+                            <p class="actualite">
+                                la mise à jour ou la supression de client pour le conseiller ${user.prenom}</p>
+                            <br>
+                            <div class ="container">
+                                <div class="row justify-content-arround">
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-outline-dark justify-content-arround" data-toggle="modal" data-target="#ajout">Ajouter client</button>
+
+                                        <div class="modal fade" id="ajout" tabindex="-1" role="dialog" aria-labelledby="ajout" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="ajout">La personne à ajouter</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="AddClient" method="POST">
+                                                    <div class="modal-body">
+                                                        
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Nom" name="nom">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" required placeholder="Prenom" name="prenom">
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                                    </div>
+                                                        
+                                                    </form>
+                                                    
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-outline-dark justify-content-arround">Modifier client</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-outline-dark justify-content-arround">Supprimer client</button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm">
-                    One of three columns
-                </div>
+
             </div>
-        </div>
     </body>
 </html>

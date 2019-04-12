@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -61,25 +62,8 @@ public class ClientModifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        String mdp = request.getParameter("mdp");
-        String mail = request.getParameter("mail");
-       
-        try {
-            
-            //Client c = ${user};
-            Client c = null;
-            updateInfo(c, mail, mdp);
-            out.println("Nom" + c.getNom());
-            out.println("Prenom" + c.getPrenom());
-            out.println("Nouveau mail" + c.getMail());
-            out.println("ID" + c.getIdpersonne());
-            out.println("Nouveau mdp" + c.getMdp());
+            processRequest(request, response);
         
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
     }
 
     /**
@@ -93,7 +77,28 @@ public class ClientModifyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
+        
+        
+ 
+        String mdp = request.getParameter("Newmdp");
+        String mail = request.getParameter("Newmail");
+       
+        Client c = new Client();
+        
+        try {
+    
+            updateInfo(c, mail, mdp);
+            out.println("Nom" + c.getNom());
+            out.println("Prenom" + c.getPrenom());
+            out.println("Nouveau mail" + c.getMail());
+            out.println("ID" + c.getIdpersonne());
+            out.println("Nouveau mdp" + c.getMdp());
+        
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
