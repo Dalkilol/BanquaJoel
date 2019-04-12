@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.bank.servlet;
+
 import com.bank.bean.Client;
 import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
@@ -43,7 +44,7 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminHomeServlet</title>");            
+            out.println("<title>Servlet AdminHomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminHomeServlet at " + request.getContextPath() + "</h1>");
@@ -64,65 +65,58 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         HttpSession session = request.getSession(true);
-Personne p = (Personne) session.getAttribute("user");
-request.setAttribute("user",p);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user", p);
 
-if (p.isIsAdmin()) {
-    
-    try {
-    List<Personne> personnes = AdminDao.getAllConseiller();
-    request.setAttribute("allConseillers", personnes);
-    request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response); 
-    
-    
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        out.println(e.getMessage());
-    }
-    
-    
-}
-if (p.isIsClient() ) {
-    try {
-        Client c  = PersonneDao.getClient(p);
-        
-        
-        request.getSession(true).setAttribute("client", c);
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        System.out.println(e.getMessage());
-        out.println("c'est a moi que tu parles ? " + e.getMessage());
-    }
-    request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
-}
+        if (p.isIsAdmin()) {
 
+            try {
+                List<Personne> personnes = AdminDao.getAllConseiller();
+                request.setAttribute("allConseillers", personnes);
+                
+                List<Personne> personness = AdminDao.getAllConseillerDesact();
+                request.setAttribute("allConseillersDesact", personness);
+                
+                request.getRequestDispatcher("/WEB-INF/adminHome.jsp").forward(request, response);
 
-if (p.isIsConseiller()) {
- /*   try {
-        Conseiller con  = PersonneDao.getConseiller(p);
-        
-        
-        request.getSession(true).setAttribute("conseiller", con);
-    } catch (Exception e) {
-        PrintWriter out = response.getWriter();
-        System.out.println(e.getMessage());
-        out.println("c'est a moi que tu parles ? " + e.getMessage());
-    }
-  */  
-    request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
-}
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println(e.getMessage());
+            }
 
+        }
+        if (p.isIsClient()) {
+            try {
+                Client c = PersonneDao.getClient(p);
 
-else{
-    PrintWriter out = response.getWriter();
-    out.println("n'importe quoi ");
-}
-        
-        
-        
+                request.getSession(true).setAttribute("client", c);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                System.out.println(e.getMessage());
+                out.println("c'est a moi que tu parles ? " + e.getMessage());
+            }
+            request.getRequestDispatcher("/WEB-INF/clientHome.jsp").forward(request, response);
+        }
+
+        if (p.isIsConseiller()) {
+            try {
+                Conseiller con = PersonneDao.getConseiller(p);
+
+                request.getSession(true).setAttribute("conseiller", con);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                System.out.println(e.getMessage());
+                out.println("c'est a moi que tu parles ? " + e.getMessage());
+            }
+
+            request.getRequestDispatcher("/WEB-INF/consHomeConseiller.jsp").forward(request, response);
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("n'importe quoi ");
+        }
+
     }
 
     /**

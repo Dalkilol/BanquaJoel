@@ -63,7 +63,14 @@ public class ClientModifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+            
+        HttpSession session = request.getSession(true);
+        Personne p = (Personne) session.getAttribute("user");
+        request.setAttribute("user",p);
+        
+        Client client = (Client) session.getAttribute("client");
+        request.setAttribute("client", client);
+        request.getRequestDispatcher("/WEB-INF/clientProfil.jsp").forward(request, response);
         
     }
 
@@ -92,11 +99,13 @@ public class ClientModifyServlet extends HttpServlet {
         try {
     
             updateInfo(c, mail, mdp);
+            /*
             out.println("Nom" + c.getNom());
             out.println("Prenom" + c.getPrenom());
             out.println("Nouveau mail" + c.getMail());
             out.println("ID" + c.getIdpersonne());
             out.println("Nouveau mdp" + c.getMdp());
+            */
         
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
