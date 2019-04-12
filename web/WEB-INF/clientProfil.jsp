@@ -21,16 +21,16 @@
             <div class="row">
                 <div class="col-sm">
                     
-                    <p>Nom : </p> <br>
-                    <p>Prenom : </p> <br>
-                    <p>mail : </p> <br>
-                    <p>mdp : </p> <br>
+                    <p>Nom : ${user.nom}</p> <br>
+                    <p>Prenom : ${user.prenom} </p> <br>
+                    <p>mail : ${user.mail} </p> <br>
+                    <p>mdp : ************** </p> <br>
 
-                    <input class="front-control" type="text" placeholder="Nouvel email" name="Newmail">
-                    <input class="front-control" type="text" placeholder="Nouveau mot de passe" name="Newmdp">
                     
                     <form action="ModifClient" method="POST">
-                        <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Modifier vos informations</button>
+                    <input class="front-control" type="text" placeholder="${user.mail}" name="Newmail">
+                    <input class="front-control" type="text" placeholder="*********" name="Newmdp">
+                    <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be;">Modifier vos informations</button>
                     </form>
                     
                 </div>
