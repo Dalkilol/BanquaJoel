@@ -10,11 +10,10 @@ package com.bank.bean;
  * @author ESIC
  */
 public class Compte {
-    
     private int idcompte;
     private Double solde;
     private Double decouvert;
-    private int client_idclient;
+    private int idclient;
     
     
     
@@ -22,11 +21,11 @@ public class Compte {
     
     }
     
-    public Compte(int idcompte, Double solde, Double decouvert, int client_idclient){
+    public Compte(int idcompte, Double solde, Double decouvert, int idclient){
     this.idcompte=idcompte;
     this.solde=solde;
     this.decouvert=decouvert;
-    this.client_idclient=client_idclient;
+    this.idclient=idclient;
     }
 
     public int getIdcompte() {
@@ -41,8 +40,8 @@ public class Compte {
         return decouvert;
     }
 
-    public int getClient_idclient() {
-        return client_idclient;
+    public int getIdclient() {
+        return idclient;
     }
 
     public void setIdcompte(int idcompte) {
@@ -57,12 +56,12 @@ public class Compte {
         this.decouvert = decouvert;
     }
 
-    public void setClient_idclient(int client_idclient) {
-        this.client_idclient = client_idclient;
+    public void setIdclient(int idclient) {
+        this.idclient = idclient;
     }
     
     public String infoCompte(){
-        return "Id Compte : "+idcompte+" | Id Client : " + client_idclient+" | Solde du compte : " + solde + " | Découvert autorisé : " + decouvert;
+        return "Id Compte : "+idcompte+" | Id Client : " + idclient+" | Solde du compte : " + solde + " | Découvert autorisé : " + decouvert;
     }
     
 }
