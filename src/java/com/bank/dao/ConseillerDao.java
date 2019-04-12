@@ -6,6 +6,11 @@
 package com.bank.dao;
 
 import com.bank.bean.Conseiller;
+import com.bank.bean.Personne;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
