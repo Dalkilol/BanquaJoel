@@ -46,7 +46,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Se déconnecter</a>
+                        <a class="nav-link" href="DeconnectServlet">Se déconnecter</a>
                     </li>
                 </ul>
             </div>
