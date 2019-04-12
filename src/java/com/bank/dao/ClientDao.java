@@ -5,15 +5,13 @@
  */
 package com.bank.dao;
 
-import com.bank.bean.Client;
+import com.bank.bean.Compte;
 import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -73,27 +71,24 @@ public class ClientDao {
         return p;
     }
     
-    public static void updateInfo(Client c, String mail, String mdp) throws SQLException {
-        
-        Personne p = getInfo(c);
-        
+    public static void updateInfo(Personne c) throws SQLException {
+                
         String sql = "UPDATE personne SET mail=?, mdp=? WHERE personne.idpersonne=?";
         
         Connection connexion = ConnectConf.getConnection();
        
         PreparedStatement ordre = connexion.prepareStatement(sql);
          
-         ordre.setString(1, mail);
-         ordre.setString(2, mdp);
-         ordre.setInt(3, p.getIdpersonne());
+         ordre.setString(1, c.getMail());
+         ordre.setString(2, c.getMdp());
+         ordre.setInt(3, c.getIdpersonne());
          
          ordre.execute();
         
     }
     
-    public static void getHistorique(String log, String pass) throws SQLException {
+    public static void getHistorique(Compte c) throws SQLException {
         
-        List<String> dates = new ArrayList<>();
 
         String sql = "SELECT historique.dateOpe, historique.montantOpe, historique.motif, historique.idcompte FROM historique, personne, compte WHERE historique.compte_idcompte = compte.idcompte AND compte.client_idclient = personne.idpersonne AND mail=log AND mdp=pass";
         
