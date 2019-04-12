@@ -76,21 +76,16 @@ public class ConsAddCompteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idcompte = request.getParameter("idcompte");
-        String solde = request.getParameter("solde");
-        String decouvert = request.getParameter("decouvert");
-        String idclient = request.getParameter("idclient");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
 
-        Compte c = new Compte();
-        c.setIdcompte(Integer.parseInt(idcompte));
-        c.setSolde(Double.parseDouble(solde));
-        c.setDecouvert(Double.parseDouble(decouvert));
-        c.setIdclient(Integer.parseInt(idclient));
-
+        Compte c = new Compte();   
+        c.setSolde(0.00);
+        c.setDecouvert(0.00);
         try {
 
             CompteDao.insertCompte(c);
-            response.sendRedirect("Home");
+            response.sendRedirect("AddCompte");
 
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
