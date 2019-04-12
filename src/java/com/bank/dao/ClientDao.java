@@ -6,6 +6,7 @@
 package com.bank.dao;
 
 import com.bank.bean.Client;
+import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,14 +19,15 @@ import java.sql.SQLException;
 public class ClientDao {
     
     
-    public static void AddClient(Client c)
+    public static void AddClient(Personne p, Conseiller c)
         throws SQLException{
         
-        String sql = "INSERT INTO client (nom, prenom, mail, mdp, conseiller_idconseiller) VALUE(?,?,?,?,?)";        
-        Connection con = ConnectConf.getConnection();
-        
+        String sql = "INSERT INTO client (idclient, idconseiller) VALUE(?,?)";        
+        Connection con = ConnectConf.getConnection();       
         PreparedStatement req = con.prepareStatement(sql);
-        
+                
+        req.setInt(1, p.getIdpersonne());
+        req.setInt(2, c.getIdConseiller());
         
         req.execute();
         
