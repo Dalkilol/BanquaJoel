@@ -20,20 +20,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
+                    One of three columns
+                </div>
+                <div class="col-sm">
+                    <br><br>
                     <form action ="MessagerieServlet" method="POST">
-                        
-                       <!-- <span class="bmd-form-group"><textarea rows="3" name="msgClient">zeohzeuofzeuhfzehfh</textarea></span>-->
-                       <div class="form-group">
-                           <input type="text" class="form-control" id="inputPass" name="msgClient" placeholder="szjsghuorh">
+                  
+                       <div class="form-group text-center">
+                           <span class="bmd-form-group"><textarea rows="6" name="msgClient">Tapez votre message</textarea></span>
                        </div>
-                           <button type="submit" class="btn btn-primary btn-raised" style="background-color: #bae0be">Envoyer</button>
+                       <div class="form-group text-center"
+                           <button type="submit" class="btn btn-primary btn-raised " style="background-color: #bae0be">Envoyer</button>
+                       </div>
                     </form>
                 </div>
                 <div class="col-sm">
                     One of three columns ${client.nom}
-                </div>
-                <div class="col-sm">
-                    One of three columns 
                 </div>
             </div>
         </div>
