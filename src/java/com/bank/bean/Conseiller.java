@@ -12,8 +12,9 @@ package com.bank.bean;
 public class Conseiller extends Personne{
     private int idconseiller;
 
-    public Conseiller(int idpersonne, String nom, String prenom, String mail, String mdp) {
+    public Conseiller(int idconseiller, int idpersonne, String nom, String prenom, String mail, String mdp) {
         super(idpersonne, nom, prenom, mail, mdp);
+        this.idconseiller = idconseiller;
     }
 
     public Conseiller() {
