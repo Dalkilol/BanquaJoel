@@ -63,15 +63,16 @@ public class ClientModifyServlet extends HttpServlet {
             throws ServletException, IOException {
             
         String mdp = request.getParameter("mdp");
+        String mail = request.getParameter("mail");
        
         try {
             
             //Client c = ${user};
             Client c = null;
-            updateInfo(c, mdp);
+            updateInfo(c, mail, mdp);
             out.println("Nom" + c.getNom());
             out.println("Prenom" + c.getPrenom());
-            out.println("Mail" + c.getMail());
+            out.println("Nouveau mail" + c.getMail());
             out.println("ID" + c.getIdpersonne());
             out.println("Nouveau mdp" + c.getMdp());
         

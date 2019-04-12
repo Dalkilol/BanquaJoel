@@ -73,18 +73,19 @@ public class ClientDao {
         return p;
     }
     
-    public static void updateInfo(Client c, String mdp) throws SQLException {
+    public static void updateInfo(Client c, String mail, String mdp) throws SQLException {
         
         Personne p = getInfo(c);
         
-        String sql = "UPDATE personne SET mdp=? WHERE personne.idpersonne=?";
+        String sql = "UPDATE personne SET mail=? mdp=? WHERE personne.idpersonne=?";
         
         Connection connexion = ConnectConf.getConnection();
        
         PreparedStatement ordre = connexion.prepareStatement(sql);
          
-         ordre.setString(1, mdp);
-         ordre.setInt(2, p.getIdpersonne());
+         ordre.setString(1, mail);
+         ordre.setString(2, mdp);
+         ordre.setInt(3, p.getIdpersonne());
          
          ordre.execute();
         
