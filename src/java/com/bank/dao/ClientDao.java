@@ -5,15 +5,13 @@
  */
 package com.bank.dao;
 
-import com.bank.bean.Client;
+import com.bank.bean.Compte;
 import com.bank.bean.Conseiller;
 import com.bank.bean.Personne;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -89,9 +87,8 @@ public class ClientDao {
         
     }
     
-    public static void getHistorique(String log, String pass) throws SQLException {
+    public static void getHistorique(Compte c) throws SQLException {
         
-        List<String> dates = new ArrayList<>();
 
         String sql = "SELECT historique.dateOpe, historique.montantOpe, historique.motif, historique.idcompte FROM historique, personne, compte WHERE historique.compte_idcompte = compte.idcompte AND compte.client_idclient = personne.idpersonne AND mail=log AND mdp=pass";
         
