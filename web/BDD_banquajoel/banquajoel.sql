@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 12 Avril 2019 à 14:48
+-- Généré le :  Sam 13 Avril 2019 à 17:58
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `nom` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `mdp` varchar(45) NOT NULL,
-  `isadmin` tinyint(4) NOT NULL,
+  `isadmin` tinyint(4) DEFAULT NULL,
   `isconseiller` tinyint(4) DEFAULT NULL,
   `isclient` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idpersonne`)
