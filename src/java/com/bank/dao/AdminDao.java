@@ -36,7 +36,6 @@ public class AdminDao {
         ordre.execute();
     }
 
-
     public static String desactiveConseiller(Personne p)
             throws SQLException {
         String sql = "UPDATE personne p SET p.isconseiller=2 WHERE p.idpersonne=?";
@@ -52,6 +51,41 @@ public class AdminDao {
         }
 
         return msg;
+
+    }
+
+    public static String activeConseiller(Personne p)
+            throws SQLException {
+        String sql = "UPDATE personne p SET p.isconseiller=1 WHERE p.idpersonne=?";
+        String msg = "<p class='text-warning text-center'><strong>Conseiller inexistant</strong></p>";
+        Connection connexion = ConnectConf.getConnection();
+        PreparedStatement ordre = connexion.prepareStatement(sql);
+        ordre.setInt(1, p.getIdpersonne());
+
+        int row = ordre.executeUpdate();
+
+        if (row != 0) {
+            msg = "<p class='text-warning text-center'><strong>Conseiller sactivé</strong></p>";
+        }
+
+        return msg;
+
+    }
+
+    public static void modifConseiller(Personne p)
+            throws SQLException {
+        String sql = "UPDATE personne p SET p.nom=?, p.prenom=?, p.mail=?, p.mdp=? WHERE p.idpersonne=?";
+
+        Connection connexion = ConnectConf.getConnection();
+        PreparedStatement ordre = connexion.prepareStatement(sql);
+        ordre.setString(1, p.getNom());
+        ordre.setString(2, p.getPrenom());
+        ordre.setString(3, p.getMail());
+        ordre.setString(4, p.getMdp());
+        ordre.setInt(5, p.getIdpersonne());
+
+        ordre.execute();
+        
 
     }
 
@@ -76,7 +110,7 @@ public class AdminDao {
         }
         return personnes;
     }
-    
+
     public static List<Personne> getAllConseillerDesact()
             throws SQLException {
         List<Personne> personnes = new ArrayList<>();

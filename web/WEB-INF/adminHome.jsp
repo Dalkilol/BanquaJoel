@@ -31,6 +31,19 @@
                 integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
         <title>JSP Page</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+              integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
     </head>
     <body style="background-color: #eff9f1">
         <%@include file="menuAdmin.jsp" %>
@@ -82,13 +95,13 @@
                                                                 <input type="text" class="form-control" required placeholder="Prenom" name="prenom">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" required placeholder="Mail" name="mail">
+                                                                <input type="email" class="form-control" required placeholder="Mail" name="mail">
                                                             </div>
                                                             <div class="form-group">
                                                                 <input type="password" class="form-control" required placeholder="Mot de passe" name="mdp">
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
+                                                        <div class="modal-footer ">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
                                                             <button type="submit" class="btn btn-primary">Valider</button>
                                                         </div>
@@ -100,14 +113,15 @@
                                     <div class="col-4">
                                     </div>
                                 </div> 
-                                <div>
-                                    <br>${msgAdmin}
-                                </div> 
+
                             </div> 
                         </div>       
                     </div>         
                 </div>
             </div>
+            <div>
+                ${msgAdmin}
+            </div>               
             <div class="row bg-white p-5">
                 <div class="col">
                     <table class="table text-center">
@@ -131,14 +145,24 @@
                                     <td>${m.mail}</td>
                                     <td>${m.mdp}</td>
                                     <td>
-                                        <form action="#">
-                                            <button type="submit" class="btn btn-outline-dark"><i class="fa fa-check"></i></button>
+
+                                        <form action="AdminModif" action="GET">
+                                            <button type="submit" class="btn btn-raised btn-info bmd-btn-fab bmd-btn-fab-sm">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
                                             <input type="hidden" name="id" value="${m.idpersonne}">
+                                            <input type="hidden" name="nom" value="${m.nom}">
+                                            <input type="hidden" name="prenom" value="${m.prenom}">
+                                            <input type="hidden" name="mail" value="${m.mail}">
+                                            <input type="hidden" name="mdp" value="${m.mdp}">
                                         </form>
+
                                     </td>
                                     <td>
                                         <form action="AdminDel">
-                                            <button type="submit" class="btn btn-outline-dark"><i class="fa fa-ban"></i></button>
+                                            <button type="submit" class="btn btn-raised  btn-danger bmd-btn-fab bmd-btn-fab-sm">
+                                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                            </button>
                                             <input type="hidden" name="id" value="${m.idpersonne}">
                                         </form>
                                     </td>
@@ -158,6 +182,7 @@
                                 <th scope="col">Prenom</th>
                                 <th scope="col">Mail</th>
                                 <th scope="col">Mot de passe</th>
+                                <th scope="col">Modifier</th>
                                 <th scope="col">Reactiver</th>
                             </tr>
                         </thead>
@@ -170,8 +195,18 @@
                                     <td>${m.mail}</td>
                                     <td>${m.mdp}</td>
                                     <td>
-                                        <form action="#">
-                                            <button type="submit" class="btn btn-outline-dark"><i class="fa fa-check"></i></button>
+                                        <form action="AdminModif" action="GET">
+                                            <button type="submit" class="btn btn-raised  btn-info bmd-btn-fab bmd-btn-fab-sm">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                            <input type="hidden" value="${m.idpersonne}">
+                                        </form>
+
+                                    <td>
+                                        <form action="AdminActive">
+                                            <button type="submit" class="btn btn-raised  btn-success bmd-btn-fab bmd-btn-fab-sm" name="btn-reactive">
+                                                <span class="glyphicon glyphicon-repeat"></span>
+                                            </button>
                                             <input type="hidden" name="id" value="${m.idpersonne}">
                                         </form>
                                     </td>

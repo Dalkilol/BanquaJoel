@@ -7,21 +7,22 @@ package com.bank.servlet;
 
 import com.bank.bean.Personne;
 import com.bank.dao.AdminDao;
-import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ESIC
+ * @author Gross
  */
-@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAdd"})
-public class AdminAddServlet extends HttpServlet {
+@WebServlet(name = "AdminModifyServlet", urlPatterns = {"/AdminModif"})
+public class AdminModifyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +41,10 @@ public class AdminAddServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminAddServlet</title>");            
+            out.println("<title>Servlet AdminModifyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminAddServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminModifyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,8 +62,23 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         
+        String iD = request.getParameter("id");
+        int idreturn = Integer.parseInt(iD);
+        String nomreturn = request.getParameter("nom");
+        String prenomreturn = request.getParameter("prenom");
+        String mailreturn = request.getParameter("mail");
+        String mdpreturn = request.getParameter("mdp");
+        
+        request.setAttribute("idreturn", idreturn);
+        request.setAttribute("nomreturn", nomreturn);
+        request.setAttribute("prenomreturn", prenomreturn);
+        request.setAttribute("mailreturn", mailreturn);
+        request.setAttribute("mdpreturn", mdpreturn);
+
+ 
+        request.getRequestDispatcher("/WEB-INF/admintestmodif.jsp").forward(request, response);
+
     }
 
     /**
@@ -76,31 +92,30 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String mail = request.getParameter("mail");
-        String mdp = request.getParameter("mdp");
+
+        String iD = request.getParameter("idmodif");
+        int id = Integer.parseInt(iD);
+        String nom = request.getParameter("nommodif");
+        String prenom = request.getParameter("prenommodif");
+        String mail = request.getParameter("mailmodif");
+        String mdp = request.getParameter("mdpmodif");
 
         Personne p = new Personne();
+        p.setIdpersonne(id);
         p.setNom(nom);
         p.setPrenom(prenom);
         p.setMail(mail);
         p.setMdp(mdp);
 
         try {
-
-            AdminDao.insertConseiller(p);
-            request.setAttribute("msgAdmin", "<p class='text-success text-center'><strong>Nouveau conseiller créé</strong></p>");
+            AdminDao.modifConseiller(p);
             response.sendRedirect("Home");
-            
-      
+
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
         }
-        
-        
+
     }
 
     /**

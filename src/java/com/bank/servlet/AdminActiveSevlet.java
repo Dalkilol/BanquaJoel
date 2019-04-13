@@ -7,7 +7,6 @@ package com.bank.servlet;
 
 import com.bank.bean.Personne;
 import com.bank.dao.AdminDao;
-import com.bank.dao.PersonneDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ESIC
+ * @author Gross
  */
-@WebServlet(name = "AdminAddServlet", urlPatterns = {"/AdminAdd"})
-public class AdminAddServlet extends HttpServlet {
+@WebServlet(name = "AdminActiveSevlet", urlPatterns = {"/AdminActive"})
+public class AdminActiveSevlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class AdminAddServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminAddServlet</title>");            
+            out.println("<title>Servlet AdminActiveSevlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminAddServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminActiveSevlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,8 +60,23 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         
+        String iD = request.getParameter("id");
+        int id = Integer.parseInt(iD);
+
+        Personne p = new Personne();
+        p.setIdpersonne(id);
+
+        try {
+            String msg = AdminDao.activeConseiller(p);
+            request.setAttribute("msgAdmin", msg);
+            response.sendRedirect("Home");
+
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
+         
     }
 
     /**
@@ -76,31 +90,7 @@ public class AdminAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String mail = request.getParameter("mail");
-        String mdp = request.getParameter("mdp");
-
-        Personne p = new Personne();
-        p.setNom(nom);
-        p.setPrenom(prenom);
-        p.setMail(mail);
-        p.setMdp(mdp);
-
-        try {
-
-            AdminDao.insertConseiller(p);
-            request.setAttribute("msgAdmin", "<p class='text-success text-center'><strong>Nouveau conseiller créé</strong></p>");
-            response.sendRedirect("Home");
-            
-      
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
-        
-        
+        processRequest(request, response);
     }
 
     /**
