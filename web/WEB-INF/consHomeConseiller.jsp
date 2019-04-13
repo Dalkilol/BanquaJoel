@@ -70,7 +70,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="AddCompte" method="POST">
+                                                    <form action="AddClient" method="POST">
                                                     <div class="modal-body">
                                                         
                                                             <div class="form-group">

@@ -68,9 +68,11 @@ public class PersonneDao {
         
         if (res.next()){
             p = new Personne();
+            p.setIdpersonne(res.getInt("idpersonne"));
             p.setNom(res.getString("nom"));
             p.setPrenom(res.getString("prenom"));
             p.setMail(res.getString("mail"));
+            p.setMdp(res.getString("mdp"));
             p.setIsAdmin(res.getBoolean("isadmin"));
             p.setIsConseiller(res.getBoolean("isconseiller"));
             p.setIsClient(res.getBoolean("isclient"));          

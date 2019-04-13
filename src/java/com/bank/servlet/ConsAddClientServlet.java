@@ -86,7 +86,7 @@ public class ConsAddClientServlet extends HttpServlet {
         Personne p = (Personne) session.getAttribute("user");
         request.setAttribute("user", p);
         
-        Conseiller conseiller = (Conseiller) session.getAttribute("conseiller");
+        Conseiller conseiller = (Conseiller)session.getAttribute("conseiller");
         request.setAttribute("conseiller", conseiller);
         
         String nom = request.getParameter("nom");
@@ -94,14 +94,12 @@ public class ConsAddClientServlet extends HttpServlet {
 
         Personne personne = new Personne();
 
-        p.setNom(nom);
-        p.setPrenom(prenom);
-
         try {
 
-            p = PersonneDao.RecherchePersonne(nom, prenom);
-            if (p != null){
-              ClientDao.AddClient(p, conseiller);
+            personne = PersonneDao.RecherchePersonne(nom, prenom);
+            if (personne != null){
+              ClientDao.AddClient(personne);
+              ClientDao.AddClient(personne, conseiller);
             }
             else{
                 
