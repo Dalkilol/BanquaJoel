@@ -19,6 +19,18 @@ import java.sql.SQLException;
  */
 public class ClientDao {
     
+    public static void AddClient(Personne p)
+        throws SQLException{
+        
+        String sql = "Update personne SET isclient = 1 WHERE idpersonne = (?)";        
+        Connection con = ConnectConf.getConnection();       
+        PreparedStatement req = con.prepareStatement(sql);
+                
+        req.setInt(1, p.getIdpersonne());
+        
+        req.execute();
+        
+    }
     
     public static void AddClient(Personne p, Conseiller c)
         throws SQLException{
