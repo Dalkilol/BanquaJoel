@@ -34,18 +34,12 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-              integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
     </head>
     <body style="background-color: #eff9f1">
+
         <%@include file="menuAdmin.jsp" %>
         <div class ="container">
 
@@ -145,18 +139,61 @@
                                     <td>${m.mail}</td>
                                     <td>${m.mdp}</td>
                                     <td>
+                                        <button type="submit" class="btn btn-raised btn-info bmd-btn-fab bmd-btn-fab-sm"data-toggle="modal" data-target="#modif">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <input type="hidden" name="id" value="${m.idpersonne}">
+                                        <input type="hidden" name="nom" value="${m.nom}">
+                                        <input type="hidden" name="prenom" value="${m.prenom}">
+                                        <input type="hidden" name="mail" value="${m.mail}">
+                                        <input type="hidden" name="mdp" value="${m.mdp}">
 
-                                        <form action="AdminModif" action="GET">
-                                            <button type="submit" class="btn btn-raised btn-info bmd-btn-fab bmd-btn-fab-sm">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <input type="hidden" name="id" value="${m.idpersonne}">
-                                            <input type="hidden" name="nom" value="${m.nom}">
-                                            <input type="hidden" name="prenom" value="${m.prenom}">
-                                            <input type="hidden" name="mail" value="${m.mail}">
-                                            <input type="hidden" name="mdp" value="${m.mdp}">
-                                        </form>
+                                        <div class="modal fade" id="modif" tabindex="-1" role="dialog" aria-labelledby="ajout" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modif">Modifier le conseiller</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="card">
+                                                        <form action="AdminModif" method="POST">
+                                                            <br>
+                                                            <div class="form-group col col-12">
+                                                                <label>ID du consesiller</label>
+                                                                <input type="text" class="form-control" required name="idmodif">
+                                                            </div>
+                                                            <div class="form-row col col-12">
+                                                                <div class="form-group col col-6">
+                                                                    <label>Nom</label>
+                                                                    <input type="text" class="form-control" required name="nommodif">
+                                                                </div>
+                                                                <div class="form-group col col-6">
+                                                                    <label>Prenom</label>
+                                                                    <input type="text" class="form-control" required name="prenommodif">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row col col-12">   
+                                                                <div class="form-group col col-6">
+                                                                    <label>Email</label>
+                                                                    <input type="text" class="form-control" required name="mailmodif">
+                                                                </div>
+                                                                <div class="form-group col col-6">
+                                                                    <label>Mot de passe</label>
+                                                                    <input type="text" class="form-control" required name="mdpmodif">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer ">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                                                                <button type="submit" class="btn btn-primary">Valider</button>
+                                                            </div>
 
+                                                        </form>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <form action="AdminDel">
@@ -196,10 +233,14 @@
                                     <td>${m.mdp}</td>
                                     <td>
                                         <form action="AdminModif" action="GET">
-                                            <button type="submit" class="btn btn-raised  btn-info bmd-btn-fab bmd-btn-fab-sm">
+                                            <button type="submit" class="btn btn-raised btn-info bmd-btn-fab bmd-btn-fab-sm">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </button>
-                                            <input type="hidden" value="${m.idpersonne}">
+                                            <input type="hidden" name="id" value="${m.idpersonne}">
+                                            <input type="hidden" name="nom" value="${m.nom}">
+                                            <input type="hidden" name="prenom" value="${m.prenom}">
+                                            <input type="hidden" name="mail" value="${m.mail}">
+                                            <input type="hidden" name="mdp" value="${m.mdp}">
                                         </form>
 
                                     <td>
@@ -216,6 +257,7 @@
                     </table>
                 </div>   
             </div>
-        </div
+        </div>
     </body>
+
 </html>
